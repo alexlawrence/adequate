@@ -1,0 +1,6 @@
+node_modules
+.vscode
+
+dist/src
+dist/test
+dist/website

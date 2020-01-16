@@ -1,0 +1,31 @@
+{
+  "name": "adequate",
+  "version": "0.2.0",
+  "description": "An adequate UI library with minimal size",
+  "main": "./dist/adequate.module.js",
+  "type": "module",
+  "types": "./dist/types/index.module.d.ts",
+  "scripts": {
+    "build": "node ./tasks/build.js",
+    "comparison": "node ./tasks/comparison.js",
+    "examples": "node ./tasks/examples.js",
+    "prepublishOnly": "node ./tasks/build.js",
+    "test": "node ./tasks/build.js && node ./tasks/run-tests.js",
+    "website": "node ./tasks/website.js"
+  },
+  "author": "Alex Lawrence <mail@alex-lawrence.com> (https://www.alex-lawrence.com/)",
+  "license": "MIT",
+  "devDependencies": {
+    "chrome-remote-interface": "0.29.0",
+    "highlight.js": "10.6.0",
+    "marked": "2.0.1",
+    "mini.css": "3.0.1",
+    "prettier": "2.2.1",
+    "reset-css": "5.0.1",
+    "rollup": "2.41.4",
+    "rollup-plugin-import-css": "2.0.0",
+    "rollup-plugin-string": "3.0.0",
+    "terser": "5.6.0",
+    "typescript": "4.2.3"
+  }
+}

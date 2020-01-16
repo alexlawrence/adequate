@@ -1,0 +1,42 @@
+dist: trusty
+language: node_js
+node_js:
+  - node
+addons:
+  chrome: stable
+before_deploy:
+  - >
+    if ! [ "$BEFORE_DEPLOY_RUN" ]; then
+      export BEFORE_DEPLOY_RUN=1;
+      npm run website
+    fi
+deploy:
+  - provider: npm
+    on:
+      tags: true
+    skip_cleanup: true
+    email: mail@alex-lawrence.com
+    edge: true
+    api_key:
+      secure: 'TZhmzQ9ZXF2pLP1I7+kXvC9vebcNrm4gOUmD5/tDqDB7xO+pjxvlTiSVDjaYpJkyHBXgwRaeCcKjgLEPeAdLJKyUEr0L5U0CJCiXsdLh5Ut0UN6A3CBv7nnuTXxyKw8yXKWpqx6vJxYpI8knnQaOXZqqUy3WV538XJMt39cQ1OP52yUILuIPo//bYlIGOwJ0P6Iviqo5b+kHyaEJmP85pZLT9dkaYCkNxzCDZ1FRhxsbSSWJPDODJGwJ0aREfM9Hxh+tU3czZdEgFXb06YHvG9DbOOh5svz5tA/eITO9XSfiY65DmduekDkNF6vfHMHL9Z7cOQ+fVF3MP+afpHqOKUS3qQ3hUlVyO1hwQclJMrJIBH5YgjzjaqTsMBS0h9ge2zwzCiUWfLGkoJZaFtk/wYPaORSqL56f+d13vitBMKugLZEpsmmQ1mb9w60o4TAoGkUrirZSHNmLtx7Bvu2MaSIxR+iQxF8z97by/fKzmT+IS8+CiGAIW+aeA0i7JR66TDYBzFcPxcm26pTbhH5ww35A7eqFCSqHqru/fS2QArd7rXn3pWSF3B7BZUt3Nki8MQ5JQ6B7DFNDd+6Tdbu3MZg2SDBC9GBCmMyxw1Zh6dkov0qM9s3ZIl/nJzslQ2E9twVjJao8/EJfwu1qRHWI/nZy3jLXHg+mijxNF5LiA3E='
+  - provider: releases
+    file_glob: true
+    file: dist/adequate.js
+    file: dist/adequate.min.js
+    file: dist/adequate.module.js
+    on:
+      tags: true
+    skip_cleanup: true
+    edge: true
+    api_key:
+      secure: 'Iqdca/O0yy0XGk20pBdnAe7XV1cZqyx3VFvFMOPymYekyFEDLRP1CsRFxBR7NyNJd+ztRoGwuaUgx+WDAaWUPEUCFzAApIfUiGs3a3fgsXfUlDg9C1JiVLM0+DDbYTSSbx1UJmVjL41uoQK9SbBnYZhXzMn8vNh8uWOSX7JocDdn7J/RYflOyRP0fmoqYVOnqa1A/Cvk6ugesJUgTblj3KHFRp0kdWOQcgM+AIx5mD4AybDjzLEeUZObLDw3sBX16WL8qPFCTwZ8pHrFEWji+pDtGIZQ550Arg0gxReWk6HamMbcLnLw9Wi2bYVW1AiurzPL2LzCT7D6/zn5HIk8pHK72qlotbG2ZU2+k94QSv62wEx/Hes8pGAy/5MX1TRXHYqbXzQYMKY6PJx+jP1pEf2YeyDDdQ0xix8DeDZ8ESb08O1HEJS0czeQg+3e0cAr21hIz8FEVJIR9Gn7mSHHEZdlltGGQiuJ4altMWMdNxgfib6TpvEkldzHkQtSUtGsYw2OJVO+emuPvzt+BJW2c7WaJpCPvtWhH8COimg+WrcqsykCWs3z7YK2T0nOX70KL0OeMhCVEK470s7Wez9yin+nX4MjcKcilpYLz4YiTEdMLKmR6vAvLPyhkxP5b0vLV/2IFcR9ruNQElS8cBrUb4Y64/OCJoMwNdgCttGNPhg='
+  - provider: pages
+    local_dir: dist/website
+    fqdn: adequatejs.org
+    on:
+      branch: main
+    skip_cleanup: true
+    keep_history: true
+    edge: true
+    github_token:
+      secure: 'Iqdca/O0yy0XGk20pBdnAe7XV1cZqyx3VFvFMOPymYekyFEDLRP1CsRFxBR7NyNJd+ztRoGwuaUgx+WDAaWUPEUCFzAApIfUiGs3a3fgsXfUlDg9C1JiVLM0+DDbYTSSbx1UJmVjL41uoQK9SbBnYZhXzMn8vNh8uWOSX7JocDdn7J/RYflOyRP0fmoqYVOnqa1A/Cvk6ugesJUgTblj3KHFRp0kdWOQcgM+AIx5mD4AybDjzLEeUZObLDw3sBX16WL8qPFCTwZ8pHrFEWji+pDtGIZQ550Arg0gxReWk6HamMbcLnLw9Wi2bYVW1AiurzPL2LzCT7D6/zn5HIk8pHK72qlotbG2ZU2+k94QSv62wEx/Hes8pGAy/5MX1TRXHYqbXzQYMKY6PJx+jP1pEf2YeyDDdQ0xix8DeDZ8ESb08O1HEJS0czeQg+3e0cAr21hIz8FEVJIR9Gn7mSHHEZdlltGGQiuJ4altMWMdNxgfib6TpvEkldzHkQtSUtGsYw2OJVO+emuPvzt+BJW2c7WaJpCPvtWhH8COimg+WrcqsykCWs3z7YK2T0nOX70KL0OeMhCVEK470s7Wez9yin+nX4MjcKcilpYLz4YiTEdMLKmR6vAvLPyhkxP5b0vLV/2IFcR9ruNQElS8cBrUb4Y64/OCJoMwNdgCttGNPhg='
