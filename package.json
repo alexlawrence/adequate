@@ -1,0 +1,28 @@
+{
+  "name": "adequate",
+  "version": "0.1.0",
+  "description": "adequate UI library",
+  "main": "./dist/adequate.module.js",
+  "types": "./dist/adequate.d.ts",
+  "scripts": {
+    "build": "node ./tasks/build.js",
+    "comparison": "node ./tasks/comparison.js",
+    "examples": "node ./tasks/examples.js",
+    "prepublishOnly": "node ./tasks/build.js",
+    "test": "node ./tasks/run-tests.js",
+    "website": "node ./tasks/website.js"
+  },
+  "author": "Alex Lawrence <mail@alex-lawrence.com> (https://alex-lawrence.com/)",
+  "license": "MIT",
+  "devDependencies": {
+    "chrome-remote-interface": "0.28.1",
+    "highlight.js": "9.18.0",
+    "marked": "0.8.0",
+    "prettier": "1.19.1",
+    "reset-css": "5.0.1",
+    "rollup": "1.27.14",
+    "rollup-plugin-css-only": "2.0.0",
+    "terser": "4.6.1",
+    "typescript": "3.7.4"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "lib": ["DOM", "ES2019"],
+    "module": "ESNext",
+    "noEmitOnError": false,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "outDir": "./dist/src",
+    "rootDir": "./src",
+    "strict": true,
+    "target": "ES2019",
+    "types": []
+  },
+  "include": ["./src/**/*"]
+}
