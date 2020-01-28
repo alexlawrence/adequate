@@ -9,7 +9,7 @@
     "comparison": "node ./tasks/comparison.js",
     "examples": "node ./tasks/examples.js",
     "prepublishOnly": "node ./tasks/build.js",
-    "test": "node ./tasks/run-tests.js",
+    "test": "node ./tasks/build.js && node ./tasks/run-tests.js",
     "website": "node ./tasks/website.js"
   },
   "author": "Alex Lawrence <mail@alex-lawrence.com> (https://alex-lawrence.com/)",
