@@ -3,7 +3,8 @@
 <p class="subtitle">An adequate UI library with minimal size</p>
 
 <!-- bundlephobia badges -->
-<!-- travis CI -->
+
+[![Build Status](https://travis-ci.org/alexlawrence/adequate.svg?branch=master)](https://travis-ci.org/alexlawrence/adequate)
 
 ```javascript
 customElements.define('x-counter', element(() => {
