@@ -2,9 +2,11 @@
 
 <p class="subtitle">An adequate UI library with minimal size</p>
 
-<!-- bundlephobia badges -->
-
-[![Build Status](https://travis-ci.org/alexlawrence/adequate.svg?branch=master)](https://travis-ci.org/alexlawrence/adequate)
+<div class="badges">
+<a href="https://travis-ci.org/alexlawrence/adequate"><img alt="Build Status" src="https://travis-ci.org/alexlawrence/adequate.svg?branch=master"></a>
+&nbsp;
+<img alt="Package Size" src="https://badgen.net/bundlephobia/minzip/adequate">
+</div>
 
 ```javascript
 customElements.define('x-counter', element(() => {
@@ -27,12 +29,12 @@ Head to the [REPL](https://adequatejs.org/repl.html) for interactive examples
 - **Declarative views:** HTML Template Literals are rendered as Template Elements and only the changed DOM parts are updated.
 - **Custom Elements:** Custom Elements are used as component model and enable to control state boundaries and render performance.
 - **State management:** Stateful elements can be implemented with a minimal React-like Hooks API.
-- **Event handling:** Function expressions are translated into HTML event attributes for processing built-in and custom DOM events.
+- **Event handling:** Function expressions are translated into HTML event attributes for handling built-in and custom DOM events.
 - **Zero tooling:** The library requires no compilation or tooling. HTML syntax highlighting in Template Literals can be enabled via a [plugin](https://marketplace.visualstudio.com/items?itemName=bierner.lit-html).
 
 ## Non-goals
 
-- **High Performance:** The library is not optimized for render performance or memory usage.
+- **Maximum Performance:** The library is not heavily optimized for render performance or memory usage.
 - **Semantic markup:** Some used HTML attributes may deteriorate semantic markup quality.
 - **Standalone Components:** adequate can be ill-suited for implementing standalone Web Components.
 - **Full Hooks API:** While the State Hook is React-compatible, there is no support for a full Hook API.
@@ -40,7 +42,7 @@ Head to the [REPL](https://adequatejs.org/repl.html) for interactive examples
 
 ## Size comparison
 
-adequate is a perfect fit when bundle size is a critical aspect. This may be due to limited bandwidth or storage capacity restrictions. This section compares the sizes of adequate, React and Preact on their own and together with a todo list. Overall, the result numbers demonstrate the key advantage of this library. Even when bundled with a basic todo list, the size is still multiple times smaller than the Preact library itself. 
+adequate is a perfect fit when size is important, such as when dealing with limited bandwidth or storage capacity restrictions. This subsection compares the sizes of adequate, React and Preact on their own and together with a todo list. Overall, the resulting numbers demonstrate the key advantage of adequate. Even when bundled with a basic todo list, its size is still multiple times smaller than the Preact library itself. 
 
 <!-- size-comparison -->
 
