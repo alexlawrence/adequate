@@ -1,19 +1,21 @@
 # API
 
-<p class="subtitle">Brief API description</p>
+<p class="subtitle">General documentation</p>
 
-**Note:** The standalone file of adequate exports the following functions as properties `e`, `h` and `u` on the object `window.adequate`. The ES Module file exports the operations as properties with their full name.
+### `element(render, BaseClass = HTMLElement)`
 
-`element(renderFunction, BaseClass = HTMLElement)`
+The operation `element()` creates a Custom Element class. As arguments, it expects a render function and an optional base class (defaults to `HTMLElement`). The return value is a constructor that can be passed to `customElements.define()`. Note that the Custom Element types returned from this operation may not work as expected outside of adequate. Check the [REPL](https://adequatejs.org/repl.html) for an example on how to build a general purpose Custom Element.
 
-The operation `element()` is responsible for creating a Custom Element type. As arguments, it expects a render function and an optional base class, which defaults to `HTMLElement`. The return value is a class that can be passed to `customElements.define()`. The provided render function is called every time an element instance needs to update. As argument, it receives an object that contains all HTML attributes from the associated DOM element the `dispatch()` function. The return value of a render function must be a list of Template Literal tokens (typically created though `html()`). Every function expression that is used as HTML attribute value is automatically correctly converted.
+The passed in function `render()` is called every time an element instance needs to update. Upon invocation, it receives an object that contains all HTML attributes of the associated DOM element and the operation `dispatch()`. As return value the operation must provide a list of Template Literal tokens (typically created with `html()`). Every function expression that is used as HTML event attribute value is extracted and replaced with a reference. The helper operation `dispatch()` can be used inside a render function to dispatch DOM events. Effectively, it is a thin wrapper around the operation `dispatchEvent()` on the according element.
 
-The helper function `dispatch()` can be used inside an element render function to dispatch DOM events, both built-in and custom. Effectively, it is only a thin wrapper around the operation `dispatchEvent()` on the DOM element of the respective instance. The main advantage is that it is easy to use in arrow functions.
+While adequate takes care re-rendering elements whenever needed, there is also manual option. Every instance of a Custom Element type exposes the function `update()`.
 
-`html(strings, ...values)`
+### `html(strings, ...values)`
 
-The operation `html()` is a Template Literal tag function that expects an HTML Template Literal. This may consist of arbitrary strings and expressions, including nested calls to `html()`. The return value is a flattened and ordered list of Template Literal tokens. 
+The operation `html()` is a tag function that transforms a Template Literal into a flattened and ordered list of tokens. Such a literal can contain an arbitrary combination of strings and expressions, including nested calls to the `html()` function itself. 
 
-`useState(initialState)`
+### `useState(initialState)`
 
-The hook `useState()` works very similar to the implementation of [React](https://reactjs.org/docs/hooks-reference.html#usestate). One notable difference is that it only supports simple values for state updates, but not the function updater form.
+The hook `useState()` works almost identical as the implementation in [React](https://reactjs.org/docs/hooks-reference.html#usestate). As single argument, it expects an initial state value. The return value is a tuple with the current state as first item and an update function as the second one. Performing an update inside a render function of an element causes it to be re-rendered automatically. 
+
+One notable difference from the React implementation is that there is no support for the function updater form.
