@@ -16,19 +16,18 @@ body {
   width: 100%;
 }
 
-h2,
-#features + ul,
-#non-goals + ul {
-  margin: 0 auto;
-  max-width: 1024px;
-  padding: 0 10px;
-  width: 100%;
+body.repl {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding-bottom: 0;
 }
 
 nav {
   align-items: center;
   background: #333;
   display: flex;
+  flex: none;
   height: 50px;
   justify-content: flex-end;
   position: sticky;
@@ -37,12 +36,9 @@ nav {
   z-index: 1;
 }
 
-nav > * {
-  margin-right: 20px;
-}
-
 nav a {
   color: #fff;
+  margin-right: 20px;
   text-decoration: none;
 }
 
@@ -64,6 +60,7 @@ h1 {
   background: #333;
   box-sizing: border-box;
   color: #39ffaa;
+  flex: none;
   font-size: 60px;
   height: 70px;
   line-height: 1em;
@@ -83,30 +80,78 @@ h1 {
   width: 100%;
 }
 
+.badges {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
 h2 {
   font-size: 40px;
   line-height: 1em;
-  margin-top: 40px;
+  margin: 30px auto 0;
+  padding: 0 10px;
   text-align: center;
 }
 
-body > pre {
+h3 {
+  font-size: 25px;
+  line-height: 1.25em;
+  margin: 30px auto 0;
+  padding: 0 10px;
+  text-align: center;
+}
+
+p {
+  margin: 20px auto 0;
+  padding: 0 10px;
+  max-width: 650px;
+  width: max-content;
+}
+
+#features,
+#non-goals {
+  margin-top: 40px;
+}
+
+#features + ul,
+#non-goals + ul {
+  margin: 0 auto;
+  max-width: 1024px;
+  padding: 0 10px;
+  width: 100%;
+}
+
+pre {
   display: flex;
-  margin-top: 60px;
+  margin: 20px 10px;
+  overflow: auto;
   justify-content: center;
 }
 
-body > pre code {
+code {
+  background: #eee;
+  color: #333;
+  font-family: 'Source Code Pro', monospace;
+  font-size: 15px;
+  padding: 0 5px;
+}
+
+h3 code {
+  font-size: inherit;
+}
+
+pre code {
   background: #3f3f3f;
   color: #fff;
   display: block;
-  font-family: 'Source Code Pro', monospace;
   font-size: 16px;
   padding: 20px;
 }
 
 pre + p {
-  margin-top: 10px;
+  margin-top: 0;
+  padding: 0;
   text-align: center;
 }
 
@@ -132,8 +177,12 @@ strong {
 #features + ul li {
   box-sizing: border-box;
   flex: none;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   width: 33.33%;
+}
+
+#features + ul li:nth-child(-n + 3) {
+  margin-bottom: 40px;
 }
 
 #features + ul li:nth-child(3n-2) {
@@ -158,7 +207,7 @@ strong {
 #non-goals + ul li {
   box-sizing: border-box;
   flex: none;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   width: 20%;
 }
 
@@ -168,12 +217,6 @@ strong {
 
 #non-goals + ul li strong:first-of-type {
   display: block;
-}
-
-p {
-  margin: 30px auto 0;
-  max-width: 650px;
-  padding: 10px;
 }
 
 .size-comparison {
@@ -267,33 +310,62 @@ p {
   margin-left: 20px;
 }
 
-.repl {
+.repl-dropdown {
+  left: 10px;
+  position: absolute;
+  top: 80px;
+  width: max-content;
+  z-index: 1;
+}
+
+.repl-main {
   display: flex;
-  height: 100%;
+  flex: 1;
   margin: 0 auto;
+  overflow: auto;
   width: 100%;
 }
 
-.repl textarea,
-.repl iframe,
+.repl-main textarea,
 .CodeMirror {
-  height: 100%;
   width: 50%;
 }
 
+.repl-main iframe {
+  width: 50%;
+}
+
+.CodeMirror {
+  flex: 1;
+  font-size: 13.5px;
+  height: 100% !important;
+}
+
+.CodeMirror-linenumber {
+  color: #fff !important;
+}
+
+.CodeMirror pre {
+  justify-content: unset;
+}
+
 @media (max-width: 768px) {
-  body > pre code {
+  #features + ul li strong:first-of-type {
+    margin-bottom: 10px;
+  }
+
+  p {
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .badges + pre code {
     font-size: 2.25vw;
     line-height: 1.25em;
     padding: 5px;
   }
 
-  .library {
-    margin: 0 15px;
-  }
-}
-
-@media (min-width: 481px) and (max-width: 768px) {
   #features + ul li:nth-child(odd),
   #non-goals + ul li:nth-child(odd) {
     padding: 0 5px 0 0;
@@ -305,26 +377,43 @@ p {
     padding: 0 0 0 5px;
     width: 50%;
   }
+
+  .library {
+    margin: 0 15px;
+  }
 }
 
 @media (max-width: 480px) {
+  h3 {
+    font-size: 20px;
+  }
+
   nav {
     justify-content: center;
   }
 
-  nav > * {
+  nav a {
     margin-right: 0;
   }
 
-  nav > *:not(:last-child)::after {
+  nav a:not(:last-child)::after {
     color: #fff;
     content: '|';
     margin: 0 7.5px;
   }
 
+  .badges + pre {
+    justify-content: flex-start;
+  }
+
+  .badges + pre code {
+    font-size: 10px;
+    line-height: 1.25em;
+  }
+
   h1 {
     font-size: 50px;
-    height: 60px;
+    height: 50px;
   }
 
   .subtitle {
@@ -336,5 +425,13 @@ p {
   #non-goals + ul li {
     width: 100%;
     padding: 0 !important;
+  }
+
+  .size-comparison {
+    font-size: 12px;
+  }
+
+  .library {
+    margin: 0 5px;
   }
 }

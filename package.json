@@ -18,6 +18,7 @@
     "chrome-remote-interface": "0.28.1",
     "highlight.js": "9.18.0",
     "marked": "0.8.0",
+    "mini.css": "3.0.1",
     "prettier": "1.19.1",
     "reset-css": "5.0.1",
     "rollup": "1.27.14",

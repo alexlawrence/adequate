@@ -37,10 +37,10 @@ customElements.define(
             <div>
               <input
                 type="checkbox"
-                ${completed == 'true' ? 'checked' : ''}
+                ${todo.completed ? 'checked' : ''}
                 onInput="${() => toggleTodo(todo)}"
               />
-              ${label}
+              ${todo.label}
             </div>
           `
       )}

@@ -34,15 +34,17 @@ fs.writeFileSync(`${distDirectory}/api.html`, template.replace('{{content}}', ap
 const guideHtml = marked(fs.readFileSync('./GUIDE.md', 'utf-8'));
 fs.writeFileSync(`${distDirectory}/guide.html`, template.replace('{{content}}', guideHtml));
 
-const repl = fs.readFileSync(`${srcDirectory}/repl-content.html`, 'utf-8');
-fs.writeFileSync(`${distDirectory}/repl.html`, template.replace('{{content}}', repl));
+const repl = fs.readFileSync(`${srcDirectory}/repl.html`, 'utf-8');
+fs.writeFileSync(
+  `${distDirectory}/repl.html`,
+  template.replace('{{content}}', repl).replace('<body', '<body class="repl"')
+);
 
 childProcess.execSync(`./node_modules/.bin/rollup -c ${srcDirectory}/rollup.config.js`, {
   stdio: 'inherit',
 });
 
 exec('./node_modules/.bin/terser -cm -o ./dist/website/index.js ./dist/website/index.js');
-
 exec('./node_modules/.bin/terser -cm -o ./dist/website/repl.js ./dist/website/repl.js');
-
+fs.copyFileSync('node_modules/mini.css/dist/mini-default.min.css', 'dist/website/repl-iframe.css');
 fs.copyFileSync('dist/adequate.min.js', 'dist/website/adequate.min.js');
