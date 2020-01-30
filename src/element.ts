@@ -26,14 +26,14 @@ const element = (render: RenderFunction, BaseClass = HTMLElement) => {
     update() {
       const self = this;
       const extractedFunctionExpressions: Function[] = [];
-      setStateScope(self.stateList_, () => window.queueMicrotask(() => self.update()));
+      setStateScope(self.stateList_, () => window.requestAnimationFrame(() => self.update()));
       updateCustomEventHandlers(self, this.customEventHandlers_);
       const templateLiteralTokens = render.call(self, this.renderArguments_);
       const processedTokens = templateLiteralTokens.map(token =>
         token && (token as Function).call
           ? `return this.parentNode.closest('[scope]').f[${extractedFunctionExpressions.push(
-              token as Function
-            ) - 1}](...arguments)`
+            token as Function
+          ) - 1}](...arguments)`
           : token
       );
       self.f = extractedFunctionExpressions;

@@ -110,7 +110,7 @@ describe('element()', () => {
       expect(() => customElement.innerHTML == '<p>2</p>');
     });
 
-    it('should be capable of using useState() inside its render function', () => {
+    it('should be capable of using useState() inside its render function', async () => {
       const elementName = generateElementName();
       customElements.define(
         elementName,
@@ -123,17 +123,17 @@ describe('element()', () => {
       );
       const customElement = document.createElement(elementName);
       document.body.appendChild(customElement);
-      // @ts-ignore
-      expect(() => (customElement.querySelector('p').innerHTML = 'Hello World!'));
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      expect(() => customElement.querySelector('p')?.innerHTML == 'Hello World!');
     });
 
-    it('should be able to use other elements as child nodes in its render function', () => {
+    it('should be able to use other elements as child nodes in its render function', async () => {
       const elementName = generateElementName();
       const childElementName = generateElementName();
       customElements.define(
         childElementName,
         // prettier-ignore
-        element(() => html`<p>Hello World</p>`)
+        element(() => html`<p>Hello World!</p>`)
       );
       customElements.define(
         elementName,
@@ -141,8 +141,8 @@ describe('element()', () => {
       );
       const customElement = document.createElement(elementName);
       document.body.appendChild(customElement);
-      // @ts-ignore
-      expect(() => (customElement.querySelector('p').innerHTML = 'Hello World!'));
+      await new Promise(resolve => setTimeout(resolve, 0));
+      expect(() => customElement.querySelector('p')?.innerHTML == 'Hello World!');
     });
 
     it('should correctly process custom event handler attributes inside its render function', () => {
@@ -153,10 +153,10 @@ describe('element()', () => {
       customElements.define(
         childElementName,
         // prettier-ignore
-        element(function() {
+        element(function () {
           return html`<div onclick="${() => {
-            this.dispatchEvent(customEvent); 
-        }}"></div>`;
+            this.dispatchEvent(customEvent);
+          }}"></div>`;
         })
       );
       customElements.define(
