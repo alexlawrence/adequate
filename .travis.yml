@@ -21,7 +21,9 @@ deploy:
       secure: 'TZhmzQ9ZXF2pLP1I7+kXvC9vebcNrm4gOUmD5/tDqDB7xO+pjxvlTiSVDjaYpJkyHBXgwRaeCcKjgLEPeAdLJKyUEr0L5U0CJCiXsdLh5Ut0UN6A3CBv7nnuTXxyKw8yXKWpqx6vJxYpI8knnQaOXZqqUy3WV538XJMt39cQ1OP52yUILuIPo//bYlIGOwJ0P6Iviqo5b+kHyaEJmP85pZLT9dkaYCkNxzCDZ1FRhxsbSSWJPDODJGwJ0aREfM9Hxh+tU3czZdEgFXb06YHvG9DbOOh5svz5tA/eITO9XSfiY65DmduekDkNF6vfHMHL9Z7cOQ+fVF3MP+afpHqOKUS3qQ3hUlVyO1hwQclJMrJIBH5YgjzjaqTsMBS0h9ge2zwzCiUWfLGkoJZaFtk/wYPaORSqL56f+d13vitBMKugLZEpsmmQ1mb9w60o4TAoGkUrirZSHNmLtx7Bvu2MaSIxR+iQxF8z97by/fKzmT+IS8+CiGAIW+aeA0i7JR66TDYBzFcPxcm26pTbhH5ww35A7eqFCSqHqru/fS2QArd7rXn3pWSF3B7BZUt3Nki8MQ5JQ6B7DFNDd+6Tdbu3MZg2SDBC9GBCmMyxw1Zh6dkov0qM9s3ZIl/nJzslQ2E9twVjJao8/EJfwu1qRHWI/nZy3jLXHg+mijxNF5LiA3E='
   - provider: releases
     file_glob: true
-    file: dist/**/*
+    file: dist/adequate.js
+    file: dist/adequate.min.js
+    file: dist/adequate.module.js
     on:
       tags: true
     skip_cleanup: true
