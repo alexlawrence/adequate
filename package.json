@@ -1,9 +1,9 @@
 {
   "name": "adequate",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "adequate UI library",
   "main": "./dist/adequate.module.js",
-  "types": "./dist/adequate.d.ts",
+  "types": "./dist/types/index.module.d.ts",
   "scripts": {
     "build": "node ./tasks/build.js",
     "comparison": "node ./tasks/comparison.js",
