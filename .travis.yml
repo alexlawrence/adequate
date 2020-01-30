@@ -28,6 +28,7 @@ deploy:
       secure: 'WPo5lljA6+5Y7KPeLNYbgbuj7b9ccT6tXETOUyUj/3BfaswXGAubcgZFjyVRpP3wL+/Jmewx1P3ZaZYtbsJVEhHa+opTqLbF0c8+SaPdSnWJMAauh9ujIjPAl104yNhzxWa5oB94dnnUbpHdePjodTA1e9srHowdBHUWBGaRfgZPlkSJ5Ij/Bf57Go8wqo3MLJJuQ8XMsD4lxHC89ddkijQs4GgUNOaGyVuGpk9usAC4/ug+ApCYgLcAy8kzhUcb3ZDhdDXcv7rAkzbkO8tPz+TU8fI0PraTl7qGMbvlpPS1za9ZxAWUPb8hLGJo/qe1qUf0dsKUKHHrvi7Jgesb6mMfrFuyAC6yzT+Wdngw7ocRsjh1yArhgFLFIB1WS+9fGayoifqwqh0MdRz/I2eXOwH0vsH52zbBfKrfkrV/TLZnZSZ5yDFNdX1R3kHrJbGyLh4HYGII4C01scZ7BAUsO64qJDakB7M4qPMSfQF/v7hn1YZF2VQTOmxYB5KD6d81k52nGMfg9gWLupA7VddfP7uP/6TTMmo1AK1mGtDhli0nzyL1oLMBiy1q3XXuSgvNTyG+FtbJOPo+hvVB7UGwG4vEDdsVBKBxxxk27Ha27VT2B8Xg0MVjgy86fXpskK14IlQUVoSJO2X/aTMy8Pa1MqBYKSVfl8BVgKRnu5y4cK0='
   - provider: pages
     local_dir: dist/website
+    fqdn: adequatejs.org
     on:
       branch: master
     skip_cleanup: true
