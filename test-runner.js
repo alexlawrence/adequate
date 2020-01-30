@@ -3,25 +3,34 @@ const { readFile } = require('fs').promises;
 const CDP = require('chrome-remote-interface');
 
 const testLibrary = () => {
-  let indentationLevel = 0;
-  const indent = input => ' '.repeat(indentationLevel) + input;
+  const testsToExecute = [];
+  let descriptionStack = [];
 
   window.describe = (description, fn) => {
-    console.log(indent(description));
-    indentationLevel += 2;
+    descriptionStack.push(description);
     fn();
-    indentationLevel -= 2;
+    descriptionStack.pop();
   };
   window.it = (description, fn) => {
-    try {
-      fn();
-      console.info(indent('✅  ' + description));
-    } catch (error) {
-      console.error(indent('❌  ' + description + '\n  -> ' + error.toString()));
-    }
+    testsToExecute.push({
+      label: `${descriptionStack.concat(description).join(' - ')}`,
+      fn,
+    });
   };
   window.expect = fn => {
     if (!fn()) throw new Error(fn.toString());
+  };
+
+  const runTests = async () => {
+    while (testsToExecute.length) {
+      let test = testsToExecute.shift();
+      try {
+        await test.fn();
+        console.info('✅  ' + test.label);
+      } catch (error) {
+        console.error('❌  ' + test.label + '\n  -> ' + error.toString());
+      }
+    }
   };
 };
 
@@ -42,7 +51,12 @@ const testLibrary = () => {
     const consoleEntries = [];
     Runtime.consoleAPICalled(entry => consoleEntries.push(entry));
     await Runtime.evaluate({
-      expression: testLibrary.toString().replace(/.*?\{([\s\S]*)\}.*?/gm, '$1') + testCode,
+      expression: `new Promise((resolve) => {
+        ${testLibrary.toString().replace(/.*?\{([\s\S]*)\}.*?/gm, '$1')}
+        ${testCode}
+        runTests().then(resolve);
+      })`,
+      awaitPromise: true,
     });
     console.log(consoleEntries.map(entry => entry.args[0].value).join('\n'));
     exitCode = consoleEntries.some(entry => entry.type == 'error') ? 1 : 0;
