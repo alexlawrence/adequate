@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>adequate - An adequate UI library with minimal size</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto|Source+Code+Pro" rel="stylesheet" />
+    <link href="./codemirror.css" rel="stylesheet" />
+    <link href="./codemirror-theme.css" rel="stylesheet" />
+    <link href="./index.css" rel="stylesheet" />
+  </head>
+  <body>
+    <nav>
+      <a class="title" href="./index.html">adequate</a>
+      <a href="./api.html">API</a>
+      <a href="./guide.html">Guide</a>
+      <a href="./repl.html">REPL</a>
+      <a href="https://github.com/alexlawrence/adequate">Github</a>
+    </nav>
+    <h1 id="guide">Guide</h1>
+<p>👷🚧👷</p>
+<h2 id="integration">Integration</h2>
+<p>There are two possibilities for integrating adequate in a project. For one, it can be included as ES Module, which exports an object with the properties <code>element()</code>, <code>render()</code> and <code>useState()</code>. Alternatively, it can be included as a standalone file that defines the object <code>adequate</code> on <code>window</code>. In this case, the three previously mentioned functions are defined as properties <code>e</code>, <code>h</code> and <code>u</code>. </p>
+<p>more following soon...</p>
+<!-- 
+watch out for native event handlers, always quote attributes 
+
+-->
+
+
+    <script type="text/javascript" src="./codemirror.js"></script>
+    <script type="text/javascript" src="./codemirror-mode.js"></script>
+    <script type="text/javascript" src="./index.js"></script>
+  </body>
+</html>
