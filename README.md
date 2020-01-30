@@ -36,7 +36,6 @@ Head to the [REPL](https://adequatejs.org/repl.html) for interactive examples
 
 - **Maximum Performance:** The library is not heavily optimized for render performance or memory usage.
 - **Semantic markup:** Some used HTML attributes may deteriorate semantic markup quality.
-- **Standalone Components:** adequate can be ill-suited for implementing standalone Web Components.
 - **Full Hooks API:** While the State Hook is React-compatible, there is no support for a full Hook API.
 - **Shadow DOM:** The library does not support Shadow DOM for individual elements.
 
