@@ -13,7 +13,7 @@ describe('element()', () => {
     expect(() => CustomElement.prototype instanceof HTMLElement);
   });
 
-  it('should return a class that extends the class given as second argument', () => {
+  it('should return a class that extends the class provided as second argument', () => {
     const CustomElement = element(() => [], HTMLTableRowElement);
     expect(() => CustomElement.prototype instanceof HTMLTableRowElement);
   });
@@ -30,7 +30,7 @@ describe('element()', () => {
       expect(() => customElement.hasAttribute('scope'));
     });
 
-    it('should execute the passed in render function when appended to the DOM', () => {
+    it('should execute and process the passed in render function when appended to the DOM', () => {
       const elementName = generateElementName();
       customElements.define(
         elementName,
@@ -42,11 +42,10 @@ describe('element()', () => {
       );
       const customElement = document.createElement(elementName);
       document.body.appendChild(customElement);
-      // @ts-ignore
-      expect(() => customElement.querySelector('p').innerHTML == 'Hello World!');
+      expect(() => customElement.querySelector('p')?.innerHTML == 'Hello World!');
     });
 
-    it('should pass non-event-related attributes to its render function', () => {
+    it('should pass all non-event-related attributes to its render function', () => {
       const elementName = generateElementName();
       customElements.define(
         elementName,
@@ -60,8 +59,7 @@ describe('element()', () => {
       customElement.setAttribute('hello', 'Hello');
       customElement.setAttribute('world', 'World');
       document.body.appendChild(customElement);
-      // @ts-ignore
-      expect(() => customElement.querySelector('p').innerHTML == 'Hello World!');
+      expect(() => customElement.querySelector('p')?.innerHTML == 'Hello World!');
     });
 
     it('should process inline function expressions as event handler in the render function', () => {
@@ -189,5 +187,32 @@ describe('element()', () => {
       customElement.querySelector('div')?.click();
       expect(() => receivedEvent == customEvent);
     });
+
+    it('should pass in a dispatch operation to its render function for dispatching events', () => {
+      let receivedEvent: any = null;
+      const customEvent = new CustomEvent('custom-click', { bubbles: true });
+      const elementName = generateElementName();
+      customElements.define(
+        elementName,
+        // prettier-ignore
+        element(({ dispatch }) => html`<div onclick="${() => dispatch(customEvent)}"></div>`)
+      );
+      const customElement = document.createElement(elementName);
+      document.body.appendChild(customElement);
+      document.addEventListener('custom-click', event => (receivedEvent = event));
+      customElement.querySelector('div')?.click();
+      expect(() => receivedEvent == customEvent);
+    });
+
+    it('should not throw an exception when its update function is called before being added to the DOM', () => {
+      const elementName = generateElementName();
+      customElements.define(
+        elementName,
+        // prettier-ignore
+        element(() => html`<div></div>`)
+      );
+      const customElement = document.createElement(elementName);
+      document.body.appendChild(customElement);
+    })
   });
 });

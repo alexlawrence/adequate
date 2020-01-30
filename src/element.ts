@@ -11,14 +11,18 @@ type ExtractedFunctionExpressions = Function[];
 const element = (render: RenderFunction, BaseClass = HTMLElement) => {
   return class extends BaseClass {
     f!: ExtractedFunctionExpressions;
-    stateList_!: any[];
-    renderArguments_!: ReturnType<typeof createRenderArguments>;
-    customEventHandlers_!: CustomEventHandlers;
+    stateList_: any[];
+    renderArguments_: ReturnType<typeof createRenderArguments>;
+    customEventHandlers_: CustomEventHandlers;
 
-    connectedCallback() {
+    constructor() {
+      super();
       this.stateList_ = [];
       this.renderArguments_ = createRenderArguments(this);
       this.customEventHandlers_ = {};
+    }
+
+    connectedCallback() {
       this.setAttribute('scope', '');
       this.update();
     }

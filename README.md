@@ -3,9 +3,13 @@
 <p class="subtitle">An adequate UI library with minimal size</p>
 
 <div class="badges">
-<a href="https://travis-ci.org/alexlawrence/adequate"><img alt="Build Status" src="https://travis-ci.org/alexlawrence/adequate.svg?branch=master"></a>
+<a href="https://travis-ci.org/alexlawrence/adequate">
+  <img alt="Build Status" src="https://travis-ci.org/alexlawrence/adequate.svg?branch=master">
+</a>
 &nbsp;
-<img alt="Package Size" src="https://badgen.net/bundlephobia/minzip/adequate">
+<a href="https://bundlephobia.com/result?p=adequate@latest">
+  <img alt="Package Size" src="https://badgen.net/bundlephobia/minzip/adequate">
+</a>
 </div>
 
 ```javascript
@@ -25,7 +29,7 @@ Head to the [REPL](https://adequatejs.org/repl.html) for interactive examples
 
 ## Features
 
-- **Instant loading:** adequate has a minzipped size of **1.1kb**. This is 37 times smaller than React (16.12.0) and 4 times smaller than Preact (10.2.1).
+- **Instant loading:** adequate has a minzipped size of **1.1kb** (standalone). This is 37 times smaller than React (16.12.0) and 4 times smaller than Preact (10.2.1).
 - **Declarative views:** HTML Template Literals are rendered as Template Elements and only the changed DOM parts are updated.
 - **Custom Elements:** Custom Elements are used as component model and enable to control state boundaries and render performance.
 - **State management:** Stateful elements can be implemented with a minimal React-like Hooks API.
@@ -52,8 +56,8 @@ adequate is a perfect fit when size is important, such as when dealing with limi
   - library: 4.48kb
   - library + todo list: 4.69kb
 - adequate @ latest
-  - library: 1.11kb
-  - library + todo list: 1.49kb
+  - library: 1.12kb
+  - library + todo list: 1.50kb
 
 <!-- /size-comparison -->
 
