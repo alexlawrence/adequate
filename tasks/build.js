@@ -17,5 +17,3 @@ fs.writeFileSync(
   'dist/adequate.min.js',
   fs.readFileSync('dist/adequate.min.js', 'utf-8').replace(/const /g, 'let ')
 );
-
-fs.copyFileSync('dist/adequate.min.js', 'comparison/adequate@latest/adequate.min.js');
