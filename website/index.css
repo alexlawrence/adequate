@@ -357,6 +357,14 @@ strong {
   p {
     max-width: 100%;
   }
+
+  .CodeMirror {
+    font-size: 12px;
+  }
+
+  .repl-dropdown {
+    max-width: 150px;
+  }
 }
 
 @media (min-width: 481px) and (max-width: 768px) {
@@ -384,8 +392,14 @@ strong {
 }
 
 @media (max-width: 480px) {
-  h3 {
-    font-size: 20px;
+  h1 {
+    font-size: 50px;
+    height: 55px;
+  }
+
+  .subtitle {
+    font-size: 16px;
+    height: 30px;
   }
 
   nav {
@@ -409,16 +423,11 @@ strong {
   .badges + pre code {
     font-size: 10px;
     line-height: 1.25em;
+    padding: 5px;
   }
 
-  h1 {
-    font-size: 50px;
-    height: 50px;
-  }
-
-  .subtitle {
-    font-size: 16px;
-    height: 45px;
+  h3 {
+    font-size: 20px;
   }
 
   #features + ul li,
@@ -433,5 +442,9 @@ strong {
 
   .library {
     margin: 0 5px;
+  }
+
+  .repl-dropdown {
+    top: 65px;
   }
 }

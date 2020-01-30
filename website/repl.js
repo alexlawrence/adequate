@@ -31,15 +31,16 @@ codeMirror.on('change', () => {
 });
 
 const selectElement = document.querySelector('select');
-examples.forEach(({ name, code }) => {
+examples.forEach(({ name }, index) => {
   const option = document.createElement('option');
   option.innerText = name;
-  option.addEventListener('click', () => {
-    codeMirror.setValue(code.trim());
-  });
+  option.setAttribute('value', index);
   selectElement.appendChild(option);
 });
 
-const firstOptionElement = selectElement.querySelectorAll('option').item(1);
-firstOptionElement.click();
-firstOptionElement.selected = true;
+selectElement.addEventListener('change', () => {
+  codeMirror.setValue(examples[selectElement.selectedIndex - 1].code.trim());
+});
+
+selectElement.selectedIndex = 1;
+selectElement.dispatchEvent(new Event('change'));
