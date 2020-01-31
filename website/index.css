@@ -304,6 +304,7 @@ strong {
 
 .repl-dropdown-container {
   background: #333;
+  padding: 5px;
 }
 
 .repl-dropdown {
