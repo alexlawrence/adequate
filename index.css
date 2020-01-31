@@ -1,55 +1,3 @@
-/* http://meyerweb.com/eric/tools/css/reset/
-   v5.0.1 | 20191019
-   License: none (public domain)
-*/
-
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, menu, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-main, menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
-}
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure,
-footer, header, hgroup, main, menu, nav, section {
-	display: block;
-}
-/* HTML5 hidden-attribute fix for newer browsers */
-*[hidden] {
-    display: none;
-}
-body {
-	line-height: 1;
-}
-menu, ol, ul {
-	list-style: none;
-}
-blockquote, q {
-	quotes: none;
-}
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content: '';
-	content: none;
-}
-table {
-	border-collapse: collapse;
-	border-spacing: 0;
-}
 /*
 
 Dark style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiacs.Org>
@@ -112,6 +60,58 @@ Dark style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiacs.Or
 
 .hljs-emphasis {
   font-style: italic;
+}
+/* http://meyerweb.com/eric/tools/css/reset/
+   v5.0.1 | 20191019
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, menu, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+main, menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, main, menu, nav, section {
+	display: block;
+}
+/* HTML5 hidden-attribute fix for newer browsers */
+*[hidden] {
+    display: none;
+}
+body {
+	line-height: 1;
+}
+menu, ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
 }
 /* Ocean Dark Theme */
 /* https://github.com/gavsiu */
@@ -200,7 +200,7 @@ body {
   color: #333;
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
-  line-height: 20px;
+  line-height: 1.5em;
   padding-bottom: 50px;
   width: 100%;
 }
@@ -245,7 +245,6 @@ h1 {
   line-height: 1em;
   padding: 0 10px;
   text-align: center;
-  width: 100%;
 }
 
 .subtitle {
@@ -254,7 +253,6 @@ h1 {
   font-size: 20px;
   height: 55px;
   margin-top: 0;
-  max-width: none;
   text-align: center;
   width: 100%;
 }
@@ -265,43 +263,33 @@ h1 {
   margin-top: 20px;
 }
 
-h2 {
-  font-size: 40px;
-  line-height: 1em;
+h2,
+h3 {
+  line-height: 1.5em;
   margin: 30px auto 0;
+  max-width: 100%;
   padding: 0 10px;
   text-align: center;
+  width: 768px;
+}
+
+h2 {
+  font-size: 40px;
 }
 
 h3 {
   font-size: 25px;
-  line-height: 1.25em;
-  margin: 30px auto 0;
-  padding: 0 10px;
-  text-align: center;
 }
 
 p {
   margin: 20px auto 0;
+  max-width: 100%;
   padding: 0 10px;
-  max-width: 650px;
+  width: 768px;
 }
 
 .centered {
   text-align: center;
-}
-
-#features,
-#non-goals {
-  margin-top: 40px;
-}
-
-#features + ul,
-#non-goals + ul {
-  margin: 0 auto;
-  max-width: 1024px;
-  padding: 0 10px;
-  width: 100%;
 }
 
 pre {
@@ -315,6 +303,7 @@ code {
   color: #333;
   font-family: 'Source Code Pro', monospace;
   font-size: 15px;
+  line-height: 1.5em;
   padding: 0 5px;
 }
 
@@ -340,6 +329,11 @@ strong {
   font-weight: bold;
 }
 
+#features,
+#non-goals {
+  margin-top: 35px;
+}
+
 #features::before {
   content: '🚀 ';
 }
@@ -352,7 +346,10 @@ strong {
 #non-goals + ul {
   display: flex;
   flex-wrap: wrap;
-  margin-top: 35px;
+  margin: 30px auto 0;
+  max-width: 1024px;
+  padding: 0 10px;
+  width: 100%;
 }
 
 #features + ul li {
@@ -401,15 +398,13 @@ strong {
 }
 
 .size-comparison {
-  margin: 0 auto 75px;
-  margin-top: 30px;
-  max-width: 748px;
+  margin: 30px auto 75px;
+  max-width: 100%;
   padding: 0 10px;
-  width: 100%;
+  width: 768px;
 }
 
 .chart {
-  align-items: flex-end;
   border: 1px solid #888;
   display: flex;
   height: 350px;
@@ -422,9 +417,9 @@ strong {
   display: flex;
   flex: 1;
   height: 100%;
+  justify-content: center;
   margin: 0 10px;
   position: relative;
-  justify-content: center;
   z-index: 0;
 }
 
@@ -476,19 +471,34 @@ strong {
   width: 10px;
 }
 
+#resources ~ ul {
+  margin: 20px auto 0;
+  max-width: 100%;
+  padding: 0 10px;
+  width: 768px;
+}
+
 #resources ~ ul li {
+  display: inline;
   list-style-type: disc;
 }
 
-#resources ~ ul {
-  margin: 20px auto 0;
-  max-width: 100vw;
-  padding: 0 10px 0 30px;
-  width: max-content;
+#resources ~ ul li:not(:last-child)::after {
+  content: ' · ';
 }
 
 #resources ~ ul ul {
-  margin-left: 20px;
+  display: inline;
+}
+
+#resources ~ ul ul::before {
+  content: ' (';
+  margin-right: -3px;
+}
+
+#resources ~ ul ul::after {
+  content: ')';
+  margin-left: -3px;
 }
 
 .repl-dropdown-container {
@@ -529,17 +539,13 @@ strong {
 }
 
 @media (max-width: 768px) {
-  #features + ul li:nth-child(-n + 3) {
-    margin-bottom: 20px;
+  #features + ul li,
+  #non-goals + ul li {
+    margin-bottom: 30px;
   }
 
   #features + ul li strong:first-of-type {
     margin-bottom: 10px;
-  }
-
-  p {
-    max-width: 100%;
-    width: 650px;
   }
 
   .CodeMirror {
@@ -602,13 +608,18 @@ strong {
     padding: 5px;
   }
 
-  h2 {
+  h2,
+  h3 {
     text-align: left;
   }
 
   h3 {
     font-size: 20px;
-    text-align: left;
+  }
+
+  #features + ul,
+  #non-goals + ul {
+    margin-top: 20px;
   }
 
   #features + ul li,
@@ -627,14 +638,5 @@ strong {
 
   .library {
     margin: 0 5px;
-  }
-
-  #resources ~ ul {
-    margin-left: 10px;
-  }
-
-  p {
-    margin-left: 0;
-    text-align: left;
   }
 }
