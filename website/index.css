@@ -42,18 +42,8 @@ nav a {
   text-decoration: none;
 }
 
-.active {
+a.active {
   color: #39ffaa;
-}
-
-sup {
-  font-size: 11px;
-  line-height: 11px;
-  vertical-align: top;
-}
-
-sup a {
-  text-decoration: none;
 }
 
 h1 {
@@ -310,12 +300,13 @@ strong {
   margin-left: 20px;
 }
 
+.repl-dropdown-container {
+  background: #333;
+}
+
 .repl-dropdown {
-  left: 10px;
-  position: absolute;
-  top: 10px;
-  width: 150px;
-  z-index: 1;
+  max-width: 100%;
+  width: 350px;
 }
 
 .repl-main {
@@ -346,6 +337,10 @@ strong {
 }
 
 @media (max-width: 768px) {
+  #features + ul li:nth-child(-n + 3) {
+    margin-bottom: 20px;
+  }
+
   #features + ul li strong:first-of-type {
     margin-bottom: 10px;
   }
@@ -356,10 +351,6 @@ strong {
 
   .CodeMirror {
     font-size: 12px;
-  }
-
-  .repl-dropdown {
-    max-width: 150px;
   }
 }
 
@@ -448,11 +439,7 @@ strong {
     margin-left: 10px;
   }
 
-  .repl-dropdown {
-    top: 65px;
-  }
-
-  #feedback--contact + p {
+  p {
     margin-left: 0;
     text-align: left;
   }
