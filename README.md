@@ -95,6 +95,8 @@ Some of them served as inspiration for the library, others merely share similar 
   - [JSX](https://reactjs.org/docs/introducing-jsx.html)
   - [Virtual DOM](https://reactjs.org/docs/faq-internals.html)
 
-## Feedback & Contact
+## Contact & collaboration
 
-For feedback & contact check the [Github Repository](https://github.com/alexlawrence/adequate).
+<p class="centered">
+For contact & collaboration check the <a href="https://github.com/alexlawrence/adequate">Github Repository</a>.
+</p>
