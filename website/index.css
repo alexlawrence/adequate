@@ -126,7 +126,6 @@ pre {
   display: flex;
   margin: 20px 10px;
   overflow: auto;
-  justify-content: center;
 }
 
 code {
@@ -146,6 +145,7 @@ pre code {
   color: #fff;
   display: block;
   font-size: 16px;
+  margin: 0 auto;
   padding: 20px;
 }
 
@@ -345,10 +345,6 @@ strong {
   color: #fff !important;
 }
 
-.CodeMirror pre {
-  justify-content: unset;
-}
-
 @media (max-width: 768px) {
   #features + ul li strong:first-of-type {
     margin-bottom: 10px;
@@ -426,6 +422,10 @@ strong {
     padding: 5px;
   }
 
+  h2 {
+    text-align: left;
+  }
+
   h3 {
     font-size: 20px;
   }
@@ -444,7 +444,16 @@ strong {
     margin: 0 5px;
   }
 
+  #resources ~ ul {
+    margin-left: 10px;
+  }
+
   .repl-dropdown {
     top: 65px;
+  }
+
+  #feedback--contact + p {
+    margin-left: 0;
+    text-align: left;
   }
 }
