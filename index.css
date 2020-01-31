@@ -285,7 +285,10 @@ p {
   margin: 20px auto 0;
   padding: 0 10px;
   max-width: 650px;
-  width: max-content;
+}
+
+.centered {
+  text-align: center;
 }
 
 #features,
@@ -330,7 +333,6 @@ pre code {
 
 pre + p {
   margin-top: 0;
-  padding: 0;
   text-align: center;
 }
 
@@ -401,7 +403,7 @@ strong {
 .size-comparison {
   margin: 0 auto 75px;
   margin-top: 30px;
-  max-width: 1024px;
+  max-width: 748px;
   padding: 0 10px;
   width: 100%;
 }
@@ -410,7 +412,7 @@ strong {
   align-items: flex-end;
   border: 1px solid #888;
   display: flex;
-  height: 400px;
+  height: 350px;
   justify-content: center;
   position: relative;
 }
@@ -420,7 +422,7 @@ strong {
   display: flex;
   flex: 1;
   height: 100%;
-  margin: 0 30px;
+  margin: 0 10px;
   position: relative;
   justify-content: center;
   z-index: 0;
@@ -536,6 +538,7 @@ strong {
 
   p {
     max-width: 100%;
+    width: 650px;
   }
 
   .CodeMirror {
@@ -560,10 +563,6 @@ strong {
   #non-goals + ul li:nth-child(even) {
     padding: 0 0 0 5px;
     width: 50%;
-  }
-
-  .library {
-    margin: 0 15px;
   }
 }
 
@@ -608,6 +607,7 @@ strong {
 
   h3 {
     font-size: 20px;
+    text-align: left;
   }
 
   #features + ul li,
@@ -618,6 +618,10 @@ strong {
 
   .size-comparison {
     font-size: 12px;
+  }
+
+  .chart {
+    height: 250px;
   }
 
   .library {
