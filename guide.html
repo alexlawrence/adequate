@@ -17,9 +17,21 @@
       <a href="https://github.com/alexlawrence/adequate">Github</a>
     </nav>
     <h1 id="guide">Guide</h1>
-<p>👷🚧👷</p>
-<h2 id="integration">Integration</h2>
-<p>There are two possibilities for integrating adequate in a project. For one, it can be included as ES Module, which exports an object with the properties <code>element()</code>, <code>render()</code> and <code>useState()</code>. Alternatively, it can be included as a standalone file that defines the object <code>adequate</code> on <code>window</code>. In this case, the three previously mentioned functions are defined as properties <code>e</code>, <code>h</code> and <code>u</code>. </p>
+<p>This page provides a step-by-step walk-through of all the features of adequate and their possibilities.</p>
+<h2 id="installation">Installation</h2>
+<p>adequate can be integrated in a website in at least three different ways</p>
+<h3 id="installation-via-npm">Installation via npm</h3>
+<p>Ideally, the package is installed via npm as a local dependency:</p>
+<pre><code class="language-sh"><span class="hljs-comment">npm</span> <span class="hljs-comment">i</span> --<span class="hljs-comment">save</span> --<span class="hljs-comment">save</span><span class="hljs-literal">-</span><span class="hljs-comment">exact</span> <span class="hljs-comment">adequate</span></code></pre>
+<p>The installed package exposes an ESM module by default and further contains a standalone file to be directly integrated in a browser. There is also TypeScript support.</p>
+<pre><code class="language-javascript"><span class="hljs-comment">// ESM</span>
+<span class="hljs-keyword">import</span> { element, html, useState } <span class="hljs-keyword">from</span> <span class="hljs-string">'adequate'</span>;
+<span class="hljs-comment">// CJS</span>
+<span class="hljs-keyword">const</span> { element, html, useState } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'adequate'</span>);</code></pre>
+<h3 id="github-release-download">Github Release download</h3>
+<h3 id="cdns">CDNs</h3>
+<p>unpkg</p>
+<p>There are  possibilities for integrating adequate in a project. For one, it can be included as ES Module, which exports an object with the properties <code>element()</code>, <code>render()</code> and <code>useState()</code>. Alternatively, it can be included as a standalone file that defines the object <code>adequate</code> on <code>window</code>. In this case, the three previously mentioned functions are defined as properties <code>e</code>, <code>h</code> and <code>u</code>. </p>
 <p>more following soon...</p>
 <!-- 
 watch out for native event handlers, always quote attributes 
