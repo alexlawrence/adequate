@@ -19,25 +19,37 @@ marked.setOptions({
 fs.rmdirSync(distDirectory, { recursive: true });
 fs.mkdirSync(distDirectory, { recursive: true });
 
+const createPageFromMarkdown = markdownFilePath =>
+  template.replace('{{content}}', marked(fs.readFileSync(markdownFilePath, 'utf-8')));
+
+const highlightLink = (html, href) =>
+  html.replace(`<a href="${href}"`, `<a href="${href}" class="active"`);
+
 const template = fs.readFileSync(`${srcDirectory}/template.html`, 'utf-8');
 const sizeComparisonChart = fs.readFileSync(`${srcDirectory}/size-comparison-chart.html`, 'utf-8');
 
-const readme = fs.readFileSync('./README.md', 'utf-8');
-const indexHtml = marked(readme)
+const indexPage = createPageFromMarkdown('./README.md')
   .replace(/:<\/strong>/g, '</strong>')
   .replace(/<!-- size-comparison -->[\s\S]*?<!-- \/size-comparison -->/gm, sizeComparisonChart);
-fs.writeFileSync(`${distDirectory}/index.html`, template.replace('{{content}}', indexHtml));
+fs.writeFileSync(`${distDirectory}/index.html`, highlightLink(indexPage, './index.html'));
 
-const apiHtml = marked(fs.readFileSync('./API.md', 'utf-8'));
-fs.writeFileSync(`${distDirectory}/api.html`, template.replace('{{content}}', apiHtml));
+fs.writeFileSync(
+  `${distDirectory}/api.html`,
+  highlightLink(createPageFromMarkdown('./API.md'), './api.html')
+);
 
-const guideHtml = marked(fs.readFileSync('./GUIDE.md', 'utf-8'));
-fs.writeFileSync(`${distDirectory}/guide.html`, template.replace('{{content}}', guideHtml));
+fs.writeFileSync(
+  `${distDirectory}/guide.html`,
+  highlightLink(createPageFromMarkdown('./GUIDE.md'), './guide.html')
+);
 
 const repl = fs.readFileSync(`${srcDirectory}/repl.html`, 'utf-8');
 fs.writeFileSync(
   `${distDirectory}/repl.html`,
-  template.replace('{{content}}', repl).replace('<body', '<body class="repl"')
+  highlightLink(
+    template.replace('{{content}}', repl).replace('<body', '<body class="repl"'),
+    './repl.html'
+  )
 );
 
 childProcess.execSync(`./node_modules/.bin/rollup -c ${srcDirectory}/rollup.config.js`, {

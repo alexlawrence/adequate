@@ -140,8 +140,9 @@ class Calculator extends element(({a, b, operator}) => {
 }
 
 customElements.define('x-calculator', Calculator);
-
 document.body.innerHTML = '<x-calculator a="3" operator="+" b="5"></x-calculator>';
+
+document.querySelector('x-calculator').setAttribute('operator', '*');
 // Try changing the attributes directly in the Browser Dev Tools
 `,
   },

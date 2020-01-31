@@ -42,7 +42,7 @@ nav a {
   text-decoration: none;
 }
 
-.title {
+.active {
   color: #39ffaa;
 }
 
@@ -313,8 +313,8 @@ strong {
 .repl-dropdown {
   left: 10px;
   position: absolute;
-  top: 80px;
-  width: max-content;
+  top: 10px;
+  width: 150px;
   z-index: 1;
 }
 

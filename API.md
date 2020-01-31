@@ -1,7 +1,5 @@
 # API
 
-<p class="subtitle">General documentation</p>
-
 ### `element(render, BaseClass = HTMLElement)`
 
 The operation `element()` creates a Custom Element class. As arguments, it expects a render function and an optional base class (defaults to `HTMLElement`). The return value is a constructor that can be passed to `customElements.define()`. Note that the Custom Element types returned from this operation may not work as expected outside of adequate. Check the [REPL](https://adequatejs.org/repl.html) for an example on how to build a general purpose Custom Element.
