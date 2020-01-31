@@ -10,15 +10,13 @@
   </head>
   <body>
     <nav>
-      <a class="title" href="./index.html">adequate</a>
-      <a href="./api.html">API</a>
+      <a href="./index.html">adequate</a>
+      <a href="./api.html" class="active">API</a>
       <a href="./guide.html">Guide</a>
       <a href="./repl.html">REPL</a>
       <a href="https://github.com/alexlawrence/adequate">Github</a>
     </nav>
     <h1 id="api">API</h1>
-<p class="subtitle">General documentation</p>
-
 <h3 id="elementrender-baseclass--htmlelement"><code>element(render, BaseClass = HTMLElement)</code></h3>
 <p>The operation <code>element()</code> creates a Custom Element class. As arguments, it expects a render function and an optional base class (defaults to <code>HTMLElement</code>). The return value is a constructor that can be passed to <code>customElements.define()</code>. Note that the Custom Element types returned from this operation may not work as expected outside of adequate. Check the <a href="https://adequatejs.org/repl.html">REPL</a> for an example on how to build a general purpose Custom Element.</p>
 <p>The passed in function <code>render()</code> is called every time an element instance needs to update. Upon invocation, it receives an object that contains all HTML attributes of the associated DOM element and the operation <code>dispatch()</code>. As return value the operation must provide a list of Template Literal tokens (typically created with <code>html()</code>). Every function expression that is used as HTML event attribute value is extracted and replaced with a reference. The helper operation <code>dispatch()</code> can be used inside a render function to dispatch DOM events. Effectively, it is a thin wrapper around the operation <code>dispatchEvent()</code> on the according element.</p>
