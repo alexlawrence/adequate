@@ -49,7 +49,7 @@ Head to the [REPL](https://adequatejs.org/repl.html) for interactive examples
 
 ## Size comparison
 
-adequate is a perfect fit when size is important, such as when dealing with limited bandwidth or storage capacity restrictions. This subsection compares the sizes of adequate, React and Preact on their own and together with a todo list. Overall, the resulting numbers demonstrate the key advantage of adequate. Even when bundled with a basic todo list, its size is still multiple times smaller than the Preact library itself. 
+adequate is a perfect fit when size is important, such as when dealing with limited bandwidth or storage capacity restrictions. The following compares the sizes of adequate, React and Preact on their own and together with a todo list. Overall, the resulting numbers demonstrate the key advantage of adequate. Even when bundled with a basic todo list, the size is still multiple times smaller than the Preact library itself. 
 
 <!-- size-comparison -->
 

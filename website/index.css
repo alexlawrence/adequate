@@ -92,21 +92,40 @@ h3 {
   font-size: 25px;
 }
 
-p {
+h3 code {
+  font-size: inherit;
+}
+
+.guide h2,
+.guide h3 {
+  text-align: left;
+}
+
+p,
+ol {
   margin: 20px auto 0;
   max-width: 100%;
   padding: 0 10px;
   width: 768px;
 }
 
-.centered {
-  text-align: center;
+ol {
+  list-style-type: decimal;
+  padding-left: 30px;
 }
 
 pre {
+  display: block;
+  margin: 20px auto 0;
+  max-width: 100%;
+  padding: 0 10px;
+  width: 768px;
+}
+
+.home pre {
   display: flex;
-  margin: 20px 10px;
-  overflow: auto;
+  margin-bottom: 10px;
+  width: max-content;
 }
 
 code {
@@ -118,20 +137,17 @@ code {
   padding: 0 5px;
 }
 
-h3 code {
-  font-size: inherit;
-}
-
 pre code {
-  background: #3f3f3f;
+  background: #333;
+  border-radius: 5px;
   color: #fff;
   display: block;
-  font-size: 16px;
-  margin: 0 auto;
-  padding: 20px;
+  font-size: 14px;
+  overflow: auto;
+  padding: 15px;
 }
 
-pre + p {
+.home pre + p {
   margin-top: 0;
   text-align: center;
 }
@@ -311,6 +327,10 @@ strong {
   margin-left: -3px;
 }
 
+.centered {
+  text-align: center;
+}
+
 .repl-dropdown-container {
   background: #333;
   padding: 5px;
@@ -340,12 +360,20 @@ strong {
 
 .CodeMirror {
   flex: 1;
-  font-size: 13.5px;
+  font-family: 'Source Code Pro', monospace !important;
+  font-size: 14px;
   height: 100% !important;
 }
 
 .CodeMirror-linenumber {
   color: #fff !important;
+}
+
+select,
+option {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  line-height: 1.5em;
 }
 
 @media (max-width: 768px) {
@@ -364,12 +392,6 @@ strong {
 }
 
 @media (min-width: 481px) and (max-width: 768px) {
-  .badges + pre code {
-    font-size: 2.25vw;
-    line-height: 1.25em;
-    padding: 5px;
-  }
-
   #features + ul li:nth-child(odd),
   #non-goals + ul li:nth-child(odd) {
     padding: 0 5px 0 0;
@@ -408,13 +430,9 @@ strong {
     margin: 0 7.5px;
   }
 
-  .badges + pre {
-    justify-content: flex-start;
-  }
-
-  .badges + pre code {
-    font-size: 10px;
-    line-height: 1.25em;
+  pre code {
+    font-size: 12px;
+    line-height: 1.3em;
     padding: 5px;
   }
 

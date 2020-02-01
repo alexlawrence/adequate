@@ -25,13 +25,18 @@ const createPageFromMarkdown = markdownFilePath =>
 const highlightLink = (html, href) =>
   html.replace(`<a href="${href}"`, `<a href="${href}" class="active"`);
 
+const addBodyClass = (html, className) => html.replace(`<body`, `<body class="${className}"'`);
+
 const template = fs.readFileSync(`${srcDirectory}/template.html`, 'utf-8');
 const sizeComparisonChart = fs.readFileSync(`${srcDirectory}/size-comparison-chart.html`, 'utf-8');
 
 const indexPage = createPageFromMarkdown('./README.md')
   .replace(/:<\/strong>/g, '</strong>')
   .replace(/<!-- size-comparison -->[\s\S]*?<!-- \/size-comparison -->/gm, sizeComparisonChart);
-fs.writeFileSync(`${distDirectory}/index.html`, highlightLink(indexPage, './index.html'));
+fs.writeFileSync(
+  `${distDirectory}/index.html`,
+  addBodyClass(highlightLink(indexPage, './index.html'), 'home')
+);
 
 fs.writeFileSync(
   `${distDirectory}/api.html`,
@@ -40,16 +45,13 @@ fs.writeFileSync(
 
 fs.writeFileSync(
   `${distDirectory}/guide.html`,
-  highlightLink(createPageFromMarkdown('./GUIDE.md'), './guide.html')
+  addBodyClass(highlightLink(createPageFromMarkdown('./GUIDE.md'), './guide.html'), 'guide')
 );
 
 const repl = fs.readFileSync(`${srcDirectory}/repl.html`, 'utf-8');
 fs.writeFileSync(
   `${distDirectory}/repl.html`,
-  highlightLink(
-    template.replace('{{content}}', repl).replace('<body', '<body class="repl"'),
-    './repl.html'
-  )
+  addBodyClass(highlightLink(template.replace('{{content}}', repl), './repl.html'), 'repl')
 );
 
 childProcess.execSync(`./node_modules/.bin/rollup -c ${srcDirectory}/rollup.config.js`, {
