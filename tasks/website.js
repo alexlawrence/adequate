@@ -25,7 +25,7 @@ const createPageFromMarkdown = markdownFilePath =>
 const highlightLink = (html, href) =>
   html.replace(`<a href="${href}"`, `<a href="${href}" class="active"`);
 
-const addBodyClass = (html, className) => html.replace(`<body`, `<body class="${className}"'`);
+const addBodyClass = (html, className) => html.replace(`<body`, `<body class="${className}"`);
 
 const template = fs.readFileSync(`${srcDirectory}/template.html`, 'utf-8');
 const sizeComparisonChart = fs.readFileSync(`${srcDirectory}/size-comparison-chart.html`, 'utf-8');
@@ -40,7 +40,7 @@ fs.writeFileSync(
 
 fs.writeFileSync(
   `${distDirectory}/api.html`,
-  highlightLink(createPageFromMarkdown('./API.md'), './api.html')
+  addBodyClass(highlightLink(createPageFromMarkdown('./API.md'), './api.html'), 'api')
 );
 
 fs.writeFileSync(

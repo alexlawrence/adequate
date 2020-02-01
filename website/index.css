@@ -441,7 +441,7 @@ option {
     text-align: left;
   }
 
-  h3 {
+  .api h3 {
     font-size: 20px;
   }
 
