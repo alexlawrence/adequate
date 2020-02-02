@@ -1,6 +1,7 @@
 const examples = [
   {
     name: 'Counter',
+    id: 'counter',
     code: `
 customElements.define('x-counter', element(({ start }) => {
   const [value, setValue] = useState(parseInt(start));
@@ -17,6 +18,7 @@ document.body.innerHTML = '<x-counter start="3"></x-counter>';
   },
   {
     name: 'Todo List',
+    id: 'todo-list',
     code: `
 customElements.define('x-todo-list',element(() => {
   const [state, setState] = useState({
@@ -68,6 +70,7 @@ document.body.innerHTML = '<x-todo-list></x-todo-list>';
   },
   {
     name: 'useReducer()',
+    id: 'use-reducer',
     code: `
 
 const useReducer = (reducer, initialState) => {
@@ -102,6 +105,7 @@ document.body.innerHTML = '<x-counter></x-counter>';
   },
   {
     name: 'Data fetching',
+    id: 'data-fetching',
     code: `
 const useResource = (url) => {
   const [data, setData] = useState();
@@ -144,6 +148,17 @@ document.body.innerHTML = '<x-calculator a="3" operator="+" b="5"></x-calculator
 
 document.querySelector('x-calculator').setAttribute('operator', '*');
 // Try changing the attributes directly in the Browser Dev Tools
+`,
+  },
+  {
+    name: 'Guide: Hello World',
+    id: 'guide:hello-world',
+    code: `
+customElements.define('x-app', element(() => {
+  return html\`<p>Hello World!</p>\`;
+}));
+
+document.body.innerHTML = '<x-app></x-app>';
 `,
   },
 ];

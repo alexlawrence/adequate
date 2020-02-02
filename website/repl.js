@@ -42,5 +42,7 @@ selectElement.addEventListener('change', () => {
   codeMirror.setValue(examples[selectElement.selectedIndex - 1].code.trim());
 });
 
-selectElement.selectedIndex = 1;
+const matches = location.search.match(/id=([^&]*)/);
+const id = matches && matches[1];
+selectElement.selectedIndex = (id ? examples.findIndex(example => example.id == id) : 0) + 1;
 selectElement.dispatchEvent(new Event('change'));
