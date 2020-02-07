@@ -1,13 +1,13 @@
-import { element, html, useState } from './index.module';
+import { AdequateElement, html, useState } from './index.module';
 
 declare global {
   interface Window {
     adequate: {
-      e: typeof element;
+      a: typeof AdequateElement;
       h: typeof html;
       u: typeof useState;
     };
   }
 }
 
-window.adequate = { e: element, h: html, u: useState };
+window.adequate = { a: AdequateElement, h: html, u: useState };

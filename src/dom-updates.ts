@@ -1,7 +1,6 @@
 import arrayFrom from './helper/array-from';
 
 type IndexableElement = Element & { [key: string]: string };
-type AdequateElement = IndexableElement & { update: () => {} };
 
 const nonReflectedAttributes = ['checked', 'disabled', 'selected', 'value'];
 
@@ -53,30 +52,24 @@ const updateNode = (currentNode: Node, newNode: Node) => {
 };
 
 const updateElement = (currentElement: IndexableElement, newElement: IndexableElement) => {
-  const currentAttributes = arrayFrom(currentElement.attributes);
-  const newAttributes = arrayFrom(newElement.attributes);
-  const attributesToSet = newAttributes.filter(
+  arrayFrom(newElement.attributes).filter(
     attribute => attribute.value != currentElement.getAttribute(attribute.name)
-  );
-  const attributesToRemove = currentAttributes
-    .filter(attribute => attribute.name != 'scope' && !newElement.hasAttribute(attribute.name))
-    .map<{ name: string }>(({ name }) => ({ name }));
-  const attributesToUpdate: { name: string; value?: string }[] = [
-    ...attributesToSet,
-    ...attributesToRemove,
-  ];
-  attributesToUpdate.forEach(attribute => {
-    const attributeName = attribute.name;
-    if (attribute.value != null) currentElement.setAttribute(attributeName, attribute.value);
-    else currentElement.removeAttribute(attributeName);
-    if (nonReflectedAttributes.includes(attributeName)) {
-      currentElement[attributeName] = newElement[attributeName];
+  ).forEach(({ name, value }) => {
+    currentElement.setAttribute(name, value);
+    if (nonReflectedAttributes.includes(name)) {
+      currentElement[name] = newElement[name];
     }
   });
+  arrayFrom(currentElement.attributes)
+    .filter(attribute => attribute.name != 'scope' && !newElement.hasAttribute(attribute.name))
+    .forEach(({ name }) => {
+      currentElement.removeAttribute(name);
+      if (nonReflectedAttributes.includes(name)) {
+        currentElement[name] = newElement[name];
+      }
+    });
   if (!currentElement.hasAttribute('scope')) {
     updateChildNodes(currentElement, newElement);
-  } else if (attributesToUpdate[0]) {
-    (currentElement as AdequateElement).update();
   }
 };
 
