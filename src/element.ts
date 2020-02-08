@@ -4,24 +4,28 @@ import { updateChildNodes } from './dom-updates';
 import { setStateScope } from './state-hook';
 import { CustomEventHandlers, updateCustomEventHandlers } from './event-handler-updates';
 
-type RenderFunction = (this: HTMLElement, element: HTMLElement) => TemplateTokenArray;
 type ExtractedFunctionExpressions = Function[];
 
-const AdequateElement = (BaseElementClass = HTMLElement) => {
+const scopeAttributeName = 'scope';
+
+type Constructor<T> = new (...args: any[]) => T;
+
+const AdequateElement = <T extends Constructor<HTMLElement>>(BaseElementClass: T) => {
   return class extends BaseElementClass {
     f!: ExtractedFunctionExpressions;
     stateList_: any[];
     customEventHandlers_: CustomEventHandlers;
-    render!: RenderFunction;
 
-    constructor() {
+    render?(): TemplateTokenArray;
+
+    constructor(..._: any[]) {
       super();
       this.stateList_ = [];
       this.customEventHandlers_ = {};
     }
 
     connectedCallback() {
-      this.setAttribute('scope', '');
+      this.setAttribute(scopeAttributeName, '');
       this.update();
     }
 
@@ -30,12 +34,12 @@ const AdequateElement = (BaseElementClass = HTMLElement) => {
       const extractedFunctionExpressions: Function[] = [];
       setStateScope(self.stateList_, () => window.requestAnimationFrame(() => self.update()));
       updateCustomEventHandlers(self, this.customEventHandlers_);
-      const templateLiteralTokens = self.render.call(self, self);
+      const templateLiteralTokens = self.render!.call(self);
       const processedTokens = templateLiteralTokens.map(token =>
         token && (token as Function).call
-          ? `return this.parentNode.closest('[scope]').f[${extractedFunctionExpressions.push(
-            token as Function
-          ) - 1}](...arguments)`
+          ? `return this.parentNode.closest('[${scopeAttributeName}]').f[${extractedFunctionExpressions.push(
+              token as Function
+            ) - 1}](...arguments)`
           : token
       );
       self.f = extractedFunctionExpressions;
@@ -44,4 +48,4 @@ const AdequateElement = (BaseElementClass = HTMLElement) => {
   };
 };
 
-export { AdequateElement };
+export { AdequateElement, scopeAttributeName };

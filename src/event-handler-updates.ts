@@ -8,7 +8,10 @@ type CustomEventHandlers = {
 };
 
 const updateCustomEventHandlers = (element: Element, customEventHandlers: CustomEventHandlers) => {
-  getCustomEventHandlerAttributes(element).forEach(attribute => {
+  const customEventHandlerAttributes = arrayFrom(element.attributes).filter(
+    ({ name }) => /^on/.test(name) && !(name in element)
+  );
+  customEventHandlerAttributes.forEach(attribute => {
     const eventType = attribute.name.slice(2);
     const functionText = attribute.value;
     const currentEventHandler = customEventHandlers[eventType];
@@ -26,10 +29,5 @@ const updateCustomEventHandlers = (element: Element, customEventHandlers: Custom
     }
   });
 };
-
-const getCustomEventHandlerAttributes = (element: Element) =>
-  arrayFrom(element.attributes).filter(
-    attribute => !attribute.name.indexOf('on') && !(attribute.name in element)
-  );
 
 export { CustomEventHandlers, updateCustomEventHandlers };
