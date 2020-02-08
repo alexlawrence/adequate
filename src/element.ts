@@ -41,7 +41,7 @@ const AdequateElement = <T extends Constructor<HTMLElement>>(BaseElementClass: T
       self.f = extractedFunctionExpressions;
       updateChildNodes(self, createFragment(processedTokens.join('')));
     }
-  };
+  } as T & Constructor<{ render(): TemplateTokenArray }>;
 };
 
 export { AdequateElement, scopeAttributeName };
