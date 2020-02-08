@@ -3,7 +3,7 @@ import { scopeAttributeName } from './element';
 
 type IndexableElement = Element & { [key: string]: string };
 
-const nonReflectedAttributes = ['checked', 'disabled', 'selected', 'value'];
+const nonReflectedAttributesRegex = /^(checked|disabled|selected|value)$/;
 const keyAttributeName = 'data-key';
 
 const updateChildNodes = (
@@ -58,7 +58,7 @@ const updateElement = (currentElement: IndexableElement, newElement: IndexableEl
     .filter(attribute => attribute.value != currentElement.getAttribute(attribute.name))
     .forEach(({ name, value }) => {
       currentElement.setAttribute(name, value);
-      if (nonReflectedAttributes.includes(name)) {
+      if (nonReflectedAttributesRegex.test(name)) {
         currentElement[name] = newElement[name];
       }
     });
@@ -68,7 +68,7 @@ const updateElement = (currentElement: IndexableElement, newElement: IndexableEl
     )
     .forEach(({ name }) => {
       currentElement.removeAttribute(name);
-      if (nonReflectedAttributes.includes(name)) {
+      if (nonReflectedAttributesRegex.test(name)) {
         currentElement[name] = newElement[name];
       }
     });

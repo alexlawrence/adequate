@@ -13,26 +13,22 @@ type Constructor<T> = new (...args: any[]) => T;
 const AdequateElement = <T extends Constructor<HTMLElement>>(BaseElementClass: T) => {
   return class extends BaseElementClass {
     f!: ExtractedFunctionExpressions;
-    stateList_: any[];
-    customEventHandlers_: CustomEventHandlers;
+    stateList_!: any[];
+    customEventHandlers_!: CustomEventHandlers;
 
     render?(): TemplateTokenArray;
 
-    constructor(..._: any[]) {
-      super();
-      this.stateList_ = [];
-      this.customEventHandlers_ = {};
-    }
-
     connectedCallback() {
+      this.stateList_ = this.stateList_ || [];
+      this.customEventHandlers_ = this.customEventHandlers_ || {};
       this.setAttribute(scopeAttributeName, '');
-      this.update();
+      this.update_();
     }
 
-    update() {
+    update_() {
       const self = this;
       const extractedFunctionExpressions: Function[] = [];
-      setStateScope(self.stateList_, () => window.requestAnimationFrame(() => self.update()));
+      setStateScope(self.stateList_, () => requestAnimationFrame(() => self.update_()));
       updateCustomEventHandlers(self, this.customEventHandlers_);
       const templateLiteralTokens = self.render!.call(self);
       const processedTokens = templateLiteralTokens.map(token =>

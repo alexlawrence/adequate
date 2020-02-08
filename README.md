@@ -17,15 +17,17 @@
 </div>
 
 ```javascript
-customElements.define('x-counter', element(() => {
-  const [value, setValue] = useState(0);
+customElements.define('x-counter', class extends AdequateElement(HTMLElement) {
+  render() {
+    const [value, setValue] = useState(0);
 
-  return html`
-    <div>Counter: ${value}</div>
-    <button onclick="${() => setValue(value + 1)}">Increment</button>
-    <button onclick="${() => setValue(value - 1)}">Decrement</button>
-  `;
-}));
+    return html`
+      <div>Counter: ${value}</div>
+      <button onclick="${() => setValue(value + 1)}">Increment</button>
+      <button onclick="${() => setValue(value - 1)}">Decrement</button>
+    `;
+  }
+});
 document.body.innerHTML = '<x-counter></x-counter>';
 ```
 

@@ -16,7 +16,7 @@ describe('AdequateElement()', () => {
   });
 
   describe('new AdequateElement()', () => {
-    it('should receives a "scope" attribute when appended to the DOM', () => {
+    it('should receive a "scope" attribute when appended to the DOM', () => {
       const elementName = generateElementName();
       customElements.define(elementName, AdequateElement(HTMLElement));
       const customElement = document.createElement(elementName);
@@ -41,22 +41,21 @@ describe('AdequateElement()', () => {
       expect(() => customElement.querySelector('p')?.innerHTML == 'Hello World!');
     });
 
-    it('should pass all non-event-related attributes to its render function', () => {
+    it('should provide access to the actual DOM element via the this binding', () => {
       const elementName = generateElementName();
+      let accessedObject: Element;
       customElements.define(
         elementName,
         class extends AdequateElement(HTMLElement) {
           render() {
-            // prettier-ignore
-            return html`<p>${this.getAttribute('hello')} ${this.getAttribute('world')}!</p>`
+            accessedObject = this;
+            return html``;
           }
         }
       );
       const customElement = document.createElement(elementName);
-      customElement.setAttribute('hello', 'Hello');
-      customElement.setAttribute('world', 'World');
       document.body.appendChild(customElement);
-      expect(() => customElement.querySelector('p')?.innerHTML == 'Hello World!');
+      expect(() => customElement == accessedObject);
     });
 
     it('should process inline function expressions as event handler in the render function', () => {
@@ -86,44 +85,6 @@ describe('AdequateElement()', () => {
       customElement.querySelector('button')?.focus();
       expect(() => receivedEvents[0] instanceof MouseEvent);
       expect(() => receivedEvents[1] instanceof FocusEvent);
-    });
-
-    it('should re-render its child nodes when executing its update() function', () => {
-      const elementName = generateElementName();
-      let renderCount = 0;
-      customElements.define(
-        elementName,
-        class extends AdequateElement(HTMLElement) {
-          render() {
-            // prettier-ignore
-            return html`<p>${++renderCount}</p>`;
-          }
-        }
-      );
-      const customElement = document.createElement(elementName);
-      document.body.appendChild(customElement);
-      // @ts-ignore
-      customElement.update();
-      expect(() => customElement.innerHTML == '<p>2</p>');
-    });
-
-    it('should be capable of using useState() inside its render function', async () => {
-      const elementName = generateElementName();
-      customElements.define(
-        elementName,
-        class extends AdequateElement(HTMLElement) {
-          render() {
-            const [state, setState] = useState('');
-            if (!state) setState('Hello World!');
-            // prettier-ignore
-            return html`<p>${state}</p>`;
-          }
-        }
-      );
-      const customElement = document.createElement(elementName);
-      document.body.appendChild(customElement);
-      await new Promise(resolve => requestAnimationFrame(resolve));
-      expect(() => customElement.querySelector('p')?.innerHTML == 'Hello World!');
     });
 
     it('should be able to use other elements as child nodes in its render function', async () => {
@@ -188,46 +149,23 @@ describe('AdequateElement()', () => {
       expect(() => receivedEvent == customEvent);
     });
 
-    it('should pass in a dispatch operation to its render function for dispatching events', () => {
-      let receivedEvent: any = null;
-      const customEvent = new CustomEvent('custom-click', { bubbles: true });
+    it('should be capable of using useState() inside its render function', async () => {
       const elementName = generateElementName();
       customElements.define(
         elementName,
         class extends AdequateElement(HTMLElement) {
           render() {
-            return html`
-              <div onclick="${() => this.dispatchEvent(customEvent)}"></div>
-            `;
+            const [state, setState] = useState('');
+            if (!state) setState('Hello World!');
+            // prettier-ignore
+            return html`<p>${state}</p>`;
           }
         }
       );
       const customElement = document.createElement(elementName);
       document.body.appendChild(customElement);
-      document.addEventListener('custom-click', event => (receivedEvent = event));
-      customElement.querySelector('div')?.click();
-      expect(() => receivedEvent == customEvent);
-    });
-
-    it('should pass in a dispatch operation to its render function for dispatching events', () => {
-      let receivedEvent: any = null;
-      const customEvent = new CustomEvent('custom-click', { bubbles: true });
-      const elementName = generateElementName();
-      customElements.define(
-        elementName,
-        class extends AdequateElement(HTMLElement) {
-          render() {
-            return html`
-              <div onclick="${() => this.dispatchEvent(customEvent)}"></div>
-            `;
-          }
-        }
-      );
-      const customElement = document.createElement(elementName);
-      document.body.appendChild(customElement);
-      document.addEventListener('custom-click', event => (receivedEvent = event));
-      customElement.querySelector('div')?.click();
-      expect(() => receivedEvent == customEvent);
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      expect(() => customElement.querySelector('p')?.innerHTML == 'Hello World!');
     });
 
     it('should not throw an exception when its update function is called before being added to the DOM', () => {

@@ -15,5 +15,8 @@ exec(
 
 fs.writeFileSync(
   'dist/adequate.min.js',
-  fs.readFileSync('dist/adequate.min.js', 'utf-8').replace(/const /g, 'let ')
+  fs
+    .readFileSync('dist/adequate.min.js', 'utf-8')
+    .replace(/const /g, 'let ')
+    .replace(/!function\(\)\{(.*)\}\(\)/m, '(()=>{$1})()')
 );
