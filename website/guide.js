@@ -18,5 +18,6 @@ if (window.location.pathname.includes('guide')) {
 
   document.querySelector('.guide-dropdown').addEventListener('change', (event) => {
     window.location.hash = '#' + event.target.selectedOptions[0].value;
+    window.scrollTo(window.scrollX, window.scrollY - 10);
   });
 }
