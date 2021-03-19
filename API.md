@@ -1,5 +1,7 @@
 # API
 
+<p class="subtitle">Basic API description</p>
+
 ### `element(render)`
 
 The function `element()` creates a Custom Element class. As only argument, it expects a render operation. The return value is a constructor that can be passed to `customElements.define()`. Note that the Custom Element classes returned from this function may not work as expected outside of adequate. Check the [Guide](https://adequatejs.org/guide.html) for an explanation on how to build a general-purpose Custom Element.
