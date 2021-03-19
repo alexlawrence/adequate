@@ -66,3 +66,4 @@ exec('npx terser -cm -o ./dist/website/index.js ./dist/website/index.js');
 exec('npx terser -cm -o ./dist/website/repl.js ./dist/website/repl.js');
 fs.copyFileSync('node_modules/mini.css/dist/mini-default.min.css', 'dist/website/repl-iframe.css');
 fs.copyFileSync('dist/adequate.min.js', 'dist/website/adequate.min.js');
+fs.copyFileSync('website/CNAME', 'dist/website/CNAME');

@@ -8,15 +8,16 @@
   "scripts": {
     "build": "node ./tasks/build.js",
     "comparison": "node ./tasks/comparison.js",
-    "examples": "node ./tasks/examples.js",
     "prepublishOnly": "node ./tasks/build.js",
     "test": "node ./tasks/build.js && node ./tasks/run-tests.js",
-    "website": "node ./tasks/website.js"
+    "build-website": "node ./tasks/build-website.js",
+    "publish-website": "node ./tasks/build-website.js && node ./tasks/publish-website.js"
   },
   "author": "Alex Lawrence <mail@alex-lawrence.com> (https://www.alex-lawrence.com/)",
   "license": "MIT",
   "devDependencies": {
     "chrome-remote-interface": "0.29.0",
+    "gh-pages": "3.1.0",
     "highlight.js": "10.6.0",
     "marked": "2.0.1",
     "mini.css": "3.0.1",
