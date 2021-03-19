@@ -6,7 +6,7 @@ if (window.location.pathname.includes('guide')) {
     `
     <div class="guide-dropdown-container">
       <select class="guide-dropdown">
-        <option value="">jump to section</option>
+        <option value="">jump to ...</option>
         ${sectionHeadlines.map(
           (headline) =>
             `<option value="${headline.getAttribute('id')}">${headline.innerHTML}</option>`,
@@ -19,5 +19,6 @@ if (window.location.pathname.includes('guide')) {
   document.querySelector('.guide-dropdown').addEventListener('change', (event) => {
     window.location.hash = '#' + event.target.selectedOptions[0].value;
     window.scrollTo(window.scrollX, window.scrollY - 10);
+    event.preventDefault();
   });
 }
