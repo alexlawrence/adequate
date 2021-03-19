@@ -1,3 +1,56 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v5.0.1 | 20191019
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, menu, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+main, menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, main, menu, nav, section {
+	display: block;
+}
+/* HTML5 hidden-attribute fix for newer browsers */
+*[hidden] {
+    display: none;
+}
+body {
+	line-height: 1;
+}
+menu, ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
 /*
 
 Dark style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiacs.Org>
@@ -61,58 +114,7 @@ Dark style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiacs.Or
 .hljs-emphasis {
   font-style: italic;
 }
-/* http://meyerweb.com/eric/tools/css/reset/
-   v5.0.1 | 20191019
-   License: none (public domain)
-*/
 
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, menu, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-main, menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
-}
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure,
-footer, header, hgroup, main, menu, nav, section {
-	display: block;
-}
-/* HTML5 hidden-attribute fix for newer browsers */
-*[hidden] {
-    display: none;
-}
-body {
-	line-height: 1;
-}
-menu, ol, ul {
-	list-style: none;
-}
-blockquote, q {
-	quotes: none;
-}
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content: '';
-	content: none;
-}
-table {
-	border-collapse: collapse;
-	border-spacing: 0;
-}
 /* Ocean Dark Theme */
 /* https://github.com/gavsiu */
 /* Original theme - https://github.com/chriskempson/base16 */
@@ -187,6 +189,7 @@ table {
 .hljs-strong {
   font-weight: bold;
 }
+
 * {
   box-sizing: border-box;
 }
@@ -266,9 +269,9 @@ h1 {
 h2,
 h3 {
   line-height: 1.5em;
-  margin: 30px auto 0;
+  margin: 0 auto;
   max-width: 100%;
-  padding: 0 10px;
+  padding: 30px 10px 0;
   text-align: center;
   width: 768px;
 }
@@ -283,6 +286,19 @@ h3 {
 
 h3 code {
   font-size: inherit;
+}
+
+.guide-dropdown-container {
+  color: #FFF;
+  margin: 0 auto 0 20px;
+}
+
+.guide-dropdown {
+  background-color: transparent;
+  border: 1px solid #FFF;
+  color: #FFF;
+  padding: 2px;
+  width: 140px;
 }
 
 .guide h2,
@@ -317,9 +333,13 @@ pre {
   width: max-content;
 }
 
+.home pre code {
+  box-shadow: 0 0 15px rgba(0,0,0,.25);
+}
+
 code {
   background: #eee;
-  color: #333;
+  color: #222;
   font-family: 'Source Code Pro', monospace;
   font-size: 15px;
   line-height: 1.5em;
@@ -327,11 +347,11 @@ code {
 }
 
 pre code {
-  background: #333;
+  background: #222;
   border-radius: 5px;
   color: #fff;
   display: block;
-  font-size: 14px;
+  font-size: 15px;
   overflow: auto;
   padding: 15px;
 }
@@ -550,7 +570,7 @@ strong {
 .CodeMirror {
   flex: 1;
   font-family: 'Source Code Pro', monospace !important;
-  font-size: 14px;
+  font-size: 15px;
   height: 100% !important;
 }
 
@@ -565,6 +585,10 @@ option {
   line-height: 1.5em;
 }
 
+.api h3 {
+  text-align: left;
+}
+
 @media (max-width: 768px) {
   #features + ul li,
   #non-goals + ul li {
@@ -573,10 +597,6 @@ option {
 
   #features + ul li strong:first-of-type {
     margin-bottom: 10px;
-  }
-
-  .CodeMirror {
-    font-size: 12px;
   }
 }
 
@@ -620,8 +640,7 @@ option {
   }
 
   pre code {
-    font-size: 12px;
-    line-height: 1.3em;
+    font-size: 13px;
     padding: 5px;
   }
 
@@ -630,7 +649,7 @@ option {
     text-align: left;
   }
 
-  h3 {
+  .api h3 {
     font-size: 20px;
   }
 
@@ -655,5 +674,9 @@ option {
 
   .library {
     margin: 0 5px;
+  }
+
+  .CodeMirror {
+    font-size: 12px;
   }
 }

@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto|Source+Code+Pro" rel="stylesheet" />
     <link href="./index.css" rel="stylesheet" />
   </head>
-  <body class="guide"'>
+  <body class="guide">
     <nav>
       <a href="./index.html">adequate</a>
       <a href="./api.html">API</a>
@@ -17,27 +17,479 @@
       <a href="https://github.com/alexlawrence/adequate">Github</a>
     </nav>
     <h1 id="guide">Guide</h1>
-<p>This page provides a step-by-step walk-through of all the features of adequate and their possibilities.</p>
+<p class="subtitle">Step-by-step usage guide</p>
+
 <h2 id="installation">Installation</h2>
-<p>adequate can be integrated in a website in at least three different ways</p>
-<h3 id="installation-via-npm">Installation via npm</h3>
-<p>Ideally, the package is installed via npm as a local dependency:</p>
-<pre><code class="language-sh"><span class="hljs-comment">npm</span> <span class="hljs-comment">i</span> --<span class="hljs-comment">save</span> --<span class="hljs-comment">save</span><span class="hljs-literal">-</span><span class="hljs-comment">exact</span> <span class="hljs-comment">adequate</span></code></pre>
-<p>The installed package exposes an ESM module by default and further contains a standalone file to be directly integrated in a browser. There is also TypeScript support.</p>
-<pre><code class="language-javascript"><span class="hljs-comment">// ESM</span>
-<span class="hljs-keyword">import</span> { element, html, useState } <span class="hljs-keyword">from</span> <span class="hljs-string">'adequate'</span>;
-<span class="hljs-comment">// CJS</span>
-<span class="hljs-keyword">const</span> { element, html, useState } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'adequate'</span>);</code></pre>
-<h3 id="github-release-download">Github Release download</h3>
+<p>adequate is available as an ES Module (<code>adequate.module.js</code>) and as a standalone file (<code>adequate.js</code> or <code>adequate.min.js</code>). The ES Module defines named exports, while the standalone file creates the global object <code>adequate</code> on the <code>window</code> object.</p>
+<h3 id="npm">npm</h3>
+<p>The best approach is to install the library via <code>npm</code> (or <code>yarn</code>) as a local project dependency:</p>
+<pre><code class="language-text">npm i --save --save-exact adequate
+</code></pre>
+<p>The npm package also includes TypeScript definitions.</p>
+<h3 id="github-releases">Github Releases</h3>
+<p>Another installation possibility is to download adequate from the <a href="https://github.com/alexlawrence/adequate/releases">Github Repository Releases page</a>. Note that the release assets only contain the ES Module and the standalone files, without any TypeScript definitions.</p>
 <h3 id="cdns">CDNs</h3>
-<p>unpkg</p>
-<p>There are  possibilities for integrating adequate in a project. For one, it can be included as ES Module, which exports an object with the properties <code>element()</code>, <code>render()</code> and <code>useState()</code>. Alternatively, it can be included as a standalone file that defines the object <code>adequate</code> on <code>window</code>. In this case, the three previously mentioned functions are defined as properties <code>e</code>, <code>h</code> and <code>u</code>. </p>
-<p>more following soon...</p>
-<!-- 
-watch out for native event handlers, always quote attributes 
+<p>Furthermore, the library can also be loaded directly into the browser via a CDN, such as <a href="https://unpkg.com/adequate/dist/adequate.min.js">unpkg</a>. Similar to the Github Releases, this approach lacks TypeScript support.</p>
+<h2 id="ide-configuration">IDE configuration</h2>
+<p>adequate does not require any compilation or tooling. However, it is recommended to have HTML syntax highlighting for Tagged Template Literals. There are various IDE and code editor plugins to enable this functionality. For VSCode, one possibility is to use the <a href="https://marketplace.visualstudio.com/items?itemName=bierner.lit-html">lit-html plugin</a>.</p>
+<h2 id="importing-the-module">Importing the module</h2>
+<p>The ESM version can be imported both via ESM <code>import</code> or CJS <code>require()</code>:</p>
+<pre><code class="language-javascript"><span class="hljs-comment">// ESM</span>
+<span class="hljs-keyword">import</span> { element, html, useEffect, useState } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;adequate&#x27;</span>;
+<span class="hljs-comment">// CJS</span>
+<span class="hljs-keyword">const</span> { element, html, useEffect, useState } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;adequate&#x27;</span>);
+</code></pre>
+<p>The standalone file does not export members, but defines a global object on the <code>window</code>:</p>
+<pre><code class="language-javascript"><span class="hljs-comment">// Non-minified</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&#x27;./node_modules/adequate/dist/adequate.js&#x27;</span>;
+<span class="hljs-comment">// Minified</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">&#x27;./node_modules/adequate/dist/adequate.min.js&#x27;</span>;
 
--->
+<span class="hljs-keyword">const</span> { element, html, useEffect, useState } = <span class="hljs-built_in">window</span>.adequate;
+</code></pre>
+<h2 id="creating-an-element">Creating an element</h2>
+<p>Creating a Custom Element type is done by invoking the <code>element()</code> function:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> HelloWorldElement = element(<span class="hljs-function">() =&gt;</span> {
+  <span class="hljs-keyword">return</span> html`<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Hello World!<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>`</span>;
+});
+</code></pre>
+<p>As only argument, the function expects a render operation. The render operation is called every time an element instance needs to update its DOM content. The DOM content of an element is defined with the help of the <code>html()</code> tag function.</p>
+<p>The return value of the <code>element()</code> function is a constructor that can be passed to the Custom Element registry:</p>
+<pre><code class="language-javascript">customElements.define(<span class="hljs-string">&#x27;x-hello-world&#x27;</span>, HelloWorldElement);
+</code></pre>
+<p>The name for a Custom Element must contain a dash (as defined by the <a href="https://html.spec.whatwg.org/multipage/custom-elements.html#valid-custom-element-name">specification</a>). One common approach is to use a general prefix, such as <code>x-</code>. After creating and registering the Custom Element class, it can be used in the markup and in the DOM:</p>
+<pre><code class="language-javascript"><span class="hljs-built_in">document</span>.body.innerHTML = <span class="hljs-string">&#x27;&lt;x-hello-world&gt;&lt;/x-hello-world&gt;&#x27;</span>;
+</code></pre>
+<p><strong>Note:</strong> Custom Elements may not be written as self-closing tags. </p>
+<p>Nothing more is required to bootstrap an UI written with adequate. The following example combines all the previous steps into one:</p>
+<pre><code class="language-javascript">customElements.define(<span class="hljs-string">&#x27;x-hello-world&#x27;</span>, element(<span class="hljs-function">() =&gt;</span> {
+  <span class="hljs-keyword">return</span> html`<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Hello World!<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>`</span>;
+}));
+<span class="hljs-built_in">document</span>.body.innerHTML = <span class="hljs-string">&#x27;&lt;x-hello-world&gt;&lt;/x-hello-world&gt;&#x27;</span>;
+</code></pre>
+<p><a href="https://adequatejs.org/repl.html?id=creating-an-element">Run in REPL</a></p>
+<h2 id="rendering-basics">Rendering basics</h2>
+<p>The DOM content of a Custom Element is defined with the <code>html()</code> function:</p>
+<pre><code class="language-javascript">customElements.define(<span class="hljs-string">&#x27;x-favorite-fruits&#x27;</span>, element(<span class="hljs-function">() =&gt;</span> {
+  <span class="hljs-keyword">return</span> html`<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>My favorite fruits<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>`</span>;
+}));
+</code></pre>
+<p>This operation is a tag function that accepts a Template Literal. Template Literals can contain any combination of strings and expressions:</p>
+<pre><code class="language-javascript">customElements.define(<span class="hljs-string">&#x27;x-favorite-fruits&#x27;</span>, element(<span class="hljs-function">() =&gt;</span> {
+  <span class="hljs-keyword">const</span> fruits = [<span class="hljs-string">&#x27;apple&#x27;</span>, <span class="hljs-string">&#x27;mango&#x27;</span>, <span class="hljs-string">&#x27;orange&#x27;</span>];
+  <span class="hljs-keyword">return</span> html`<span class="xml">
+    <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>My </span><span class="hljs-subst">${fruits.length}</span><span class="xml"> favorite fruits are: </span><span class="hljs-subst">${fruits.join(<span class="hljs-string">&#x27;,&#x27;</span>)}</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+  `</span>;
+}));
+</code></pre>
+<p>The expressions may yield arrays, which are automatically flattened:</p>
+<pre><code class="language-javascript">customElements.define(<span class="hljs-string">&#x27;x-favorite-fruits&#x27;</span>, element(<span class="hljs-function">() =&gt;</span> {
+  <span class="hljs-keyword">const</span> fruits = [<span class="hljs-string">&#x27;apple&#x27;</span>, <span class="hljs-string">&#x27;mango&#x27;</span>, <span class="hljs-string">&#x27;orange&#x27;</span>];
+  <span class="hljs-keyword">return</span> html`<span class="xml">
+    <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>My </span><span class="hljs-subst">${fruits.length}</span><span class="xml"> favorite fruits<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+      </span><span class="hljs-subst">${fruits.map(fruit =&gt; <span class="hljs-string">&#x27;&lt;li&gt;&#x27;</span> + fruit + <span class="hljs-string">&#x27;&lt;/li&gt;&#x27;</span>)}</span><span class="xml">
+    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+  `</span>;
+}));
+</code></pre>
+<p>The Template Literals passed to <code>html()</code> can even contain nested calls to the <code>html()</code> function:</p>
+<pre><code class="language-javascript">customElements.define(<span class="hljs-string">&#x27;x-favorite-fruits&#x27;</span>, element(<span class="hljs-function">() =&gt;</span> {
+  <span class="hljs-keyword">const</span> fruits = [<span class="hljs-string">&#x27;apple&#x27;</span>, <span class="hljs-string">&#x27;mango&#x27;</span>, <span class="hljs-string">&#x27;orange&#x27;</span>];
+  <span class="hljs-keyword">return</span> html`<span class="xml">
+    <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>My </span><span class="hljs-subst">${fruits.length}</span><span class="xml"> favorite fruits<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+      </span><span class="hljs-subst">${fruits.map(fruit =&gt; html`<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span></span><span class="hljs-subst">${fruit}</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>`</span>)}</span><span class="xml">
+    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+  `</span>;
+}));
+</code></pre>
+<p>With regard to the rendered output, the two previous examples are equivalent. However, when using function attributes inside nested Template Literals, the use of the <code>html()</code> function is mandatory.</p>
+<p><a href="https://adequatejs.org/repl.html?id=rendering-basics">Run example in REPL</a></p>
+<h2 id="element-attributes">Element attributes</h2>
+<p>The render operation receives an object that exposes all HTML attributes of the respective DOM element:</p>
+<pre><code class="language-javascript">customElements.define(<span class="hljs-string">&#x27;x-id-logger&#x27;</span>, element(<span class="hljs-function">(<span class="hljs-params">{id}</span>) =&gt;</span> {
+  <span class="hljs-keyword">return</span> html`<span class="xml">The id attribute has the value </span><span class="hljs-subst">${id}</span><span class="xml">`</span>;
+}));
+<span class="hljs-built_in">document</span>.body.innerHTML = <span class="hljs-string">&#x27;&lt;x-id-logger id=&quot;my-element&quot;&gt;&lt;/x-id-logger&gt;&#x27;</span>;
+</code></pre>
+<p>This also includes attributes with custom names:</p>
+<pre><code class="language-javascript">customElements.define(<span class="hljs-string">&#x27;x-repeat&#x27;</span>, element(<span class="hljs-function">(<span class="hljs-params">{text, times}</span>) =&gt;</span> {
+  <span class="hljs-keyword">return</span> html`<span class="hljs-subst">${text.repeat(times)}</span><span class="xml">`</span>;
+}));
+<span class="hljs-built_in">document</span>.body.innerHTML = <span class="hljs-string">&#x27;&lt;x-repeat text=&quot;go &quot; times=&quot;3&quot;&gt;&lt;/x-repeat&gt;&#x27;</span>;
+</code></pre>
+<p>adequate does <strong>not</strong> transform attribute names. Specifically, there is no conversion from kebab-case to camel case:</p>
+<pre><code class="language-javascript">customElements.define(<span class="hljs-string">&#x27;x-greeter&#x27;</span>, element(<span class="hljs-function">(<span class="hljs-params">attributes</span>) =&gt;</span> {
+  <span class="hljs-keyword">return</span> html`<span class="xml">Hello, </span><span class="hljs-subst">${attributes[<span class="hljs-string">&#x27;first-name&#x27;</span>]}</span><span class="xml"> </span><span class="hljs-subst">${attributes[<span class="hljs-string">&#x27;last-name&#x27;</span>]}</span><span class="xml">`</span>;
+}));
+<span class="hljs-built_in">document</span>.body.innerHTML =
+  <span class="hljs-string">&#x27;&lt;x-greeter first-name=&quot;John&quot; last-name=&quot;Doe&quot;&gt;&lt;/x-greeter&gt;&#x27;</span>;
+</code></pre>
+<p>For camel case variable names, the attributes can be renamed upon destructuring:</p>
+<pre><code class="language-javascript">customElements.define(<span class="hljs-string">&#x27;x-greeter&#x27;</span>, element(
+  <span class="hljs-function">(<span class="hljs-params">{<span class="hljs-string">&#x27;first-name&#x27;</span>: firstName, <span class="hljs-string">&#x27;last-name&#x27;</span>: lastName}</span>) =&gt;</span> {
+    <span class="hljs-keyword">return</span> html`<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Hello, </span><span class="hljs-subst">${firstName}</span><span class="xml"> </span><span class="hljs-subst">${lastName}</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>`</span>;
+  },
+));
+<span class="hljs-built_in">document</span>.body.innerHTML =
+  <span class="hljs-string">&#x27;&lt;x-greeter first-name=&quot;John&quot; last-name=&quot;Doe&quot;&gt;&lt;/x-greeter&gt;&#x27;</span>;
+</code></pre>
+<p>Another possibility is to rely on the case insensitivity of HTML attributes:</p>
+<pre><code class="language-javascript">customElements.define(<span class="hljs-string">&#x27;x-greeter&#x27;</span>, element(<span class="hljs-function">(<span class="hljs-params">{firstName, lastName}</span>) =&gt;</span> {
+  <span class="hljs-keyword">return</span> html`<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Hello, </span><span class="hljs-subst">${firstName}</span><span class="xml"> </span><span class="hljs-subst">${lastName}</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>`</span>;
+}));
+<span class="hljs-built_in">document</span>.body.innerHTML =
+  <span class="hljs-string">&#x27;&lt;x-greeter firstname=&quot;John&quot; lastname=&quot;Doe&quot;&gt;&lt;/x-greeter&gt;&#x27;</span>;
+</code></pre>
+<p><a href="https://adequatejs.org/repl.html?id=element-attributes">Run example in REPL</a></p>
+<h2 id="event-handlers">Event handlers</h2>
+<p>Event handler functions for built-in DOM events can be passed to the according event attributes:</p>
+<pre><code class="language-javascript">customElements.define(<span class="hljs-string">&#x27;x-alert-section&#x27;</span>, element(<span class="hljs-function">() =&gt;</span> {
+  <span class="hljs-keyword">return</span> html`<span class="xml">
+    <span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-subst">${() =&gt; alert(<span class="hljs-string">&#x27;clicked&#x27;</span>)}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span>
+      Click me
+    <span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span>
+  `</span>;
+}));
+</code></pre>
+<p><strong>Important:</strong> Function attributes must be surrounded by quotes. This is different from other libraries, such as React or Preact.</p>
+<p>The event mechanism works for every native DOM event with an according on* attribute:</p>
+<pre><code class="language-javascript">customElements.define(<span class="hljs-string">&#x27;x-alert-section&#x27;</span>, element(<span class="hljs-function">() =&gt;</span> {
+  <span class="hljs-keyword">return</span> html`<span class="xml">
+    <span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">onmouseout</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-subst">${() =&gt; alert(<span class="hljs-string">&#x27;mouse out&#x27;</span>)}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span>
+      Hover out
+    <span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span>
+  `</span>;
+}));
+</code></pre>
+<p>Event attributes are a native browser functionality. Everything works as with standard event handlers, such as accessing the event object:</p>
+<pre><code class="language-javascript">customElements.define(<span class="hljs-string">&#x27;x-alert-section&#x27;</span>, element(<span class="hljs-function">() =&gt;</span> {
+  <span class="hljs-keyword">return</span> html`<span class="xml">
+    <span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-subst">${(event) =&gt; event.target.nodeName}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span>
+      Click me
+    <span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span>
+  `</span>;
+}));
+</code></pre>
+<p><a href="https://adequatejs.org/repl.html?id=event-handlers">Run example in REPL</a></p>
+<p><strong>Note:</strong> There are no built-in event attributes for Custom Events. This guide contains a separate section on how to dispatch and listen to Custom Events.</p>
+<h2 id="state-management">State management</h2>
+<p>State management can be done with the <code>useState()</code> hook:</p>
+<pre><code class="language-javascript">customElements.define(<span class="hljs-string">&#x27;x-counter&#x27;</span>, element(<span class="hljs-function">(<span class="hljs-params">{ start }</span>) =&gt;</span> {
+  <span class="hljs-keyword">const</span> [value, setValue] = useState(<span class="hljs-built_in">parseInt</span>(start));
 
+  <span class="hljs-keyword">return</span> html`<span class="xml">
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Counter: </span><span class="hljs-subst">${value}</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-subst">${() =&gt; setValue(value + <span class="hljs-number">1</span>)}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span>Increment<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-subst">${() =&gt; setValue(value - <span class="hljs-number">1</span>)}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span>Decrement<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+  `</span>;
+}));
+</code></pre>
+<p><a href="https://adequatejs.org/repl.html?id=state-management">Run example in REPL</a></p>
+<p>The function <code>useState()</code> expects an initial state as argument. Its return value is a tuple with the current state as first item and an update function as the second one. Performing a state update causes the according element to be re-rendered automatically.</p>
+<p>This hook is almost identical to the implementation in React or Preact. Please refer to the <a href="https://reactjs.org/docs/hooks-reference.html#usestate">React documentation</a> or the <a href="https://preactjs.com/guide/v10/hooks/#usestate">Preact documentation</a> for a more detailed explanation. One difference is the missing support for the function updater form.</p>
+<h2 id="side-effects">Side effects</h2>
+<p>One-time operations are setup by executing the <code>useEffect()</code> hook with an empty dependencies array:</p>
+<pre><code class="language-javascript">customElements.define(<span class="hljs-string">&#x27;x-confirm&#x27;</span>, element(<span class="hljs-function">(<span class="hljs-params">{text}</span>) =&gt;</span> {
+  <span class="hljs-keyword">const</span> [isConfirmed, setConfirmStatus] = useState(<span class="hljs-literal">null</span>);
+  useEffect(<span class="hljs-function">() =&gt;</span> {
+    setConfirmStatus(confirm(text));
+  }, []);
+  <span class="hljs-keyword">if</span> (isConfirmed == <span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span> html`<span class="xml">waiting for input`</span>;
+  <span class="hljs-keyword">return</span> html`<span class="hljs-subst">${isConfirmed ? <span class="hljs-string">&#x27;yes&#x27;</span> : <span class="hljs-string">&#x27;no&#x27;</span>}</span><span class="xml">`</span>;
+}));
+<span class="hljs-built_in">document</span>.body.innerHTML = <span class="hljs-string">&#x27;&lt;x-confirm text=&quot;Are you sure?&quot;&gt;&lt;/x-confirm&gt;&#x27;</span>;
+</code></pre>
+<p>Operations that should be re-executed when certain values change must define according dependencies:</p>
+<pre><code class="language-javascript">customElements.define(<span class="hljs-string">&#x27;x-last-commit&#x27;</span>, element(<span class="hljs-function">(<span class="hljs-params">{ owner, repo }</span>) =&gt;</span> {
+  <span class="hljs-keyword">const</span> [commit, setCommit] = useState();
+  useEffect(<span class="hljs-keyword">async</span> () =&gt; {
+    <span class="hljs-keyword">const</span> {commit} = <span class="hljs-keyword">await</span> fetch(
+      <span class="hljs-string">`https://api.github.com/repos/<span class="hljs-subst">${owner}</span>/<span class="hljs-subst">${repo}</span>/commits/HEAD`</span>,
+    ).then(<span class="hljs-function">(<span class="hljs-params">response</span>) =&gt;</span> response.json());
+    setCommit(commit);
+  }, [owner, repo]);
+
+  <span class="hljs-keyword">if</span> (!commit) <span class="hljs-keyword">return</span> html`<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Loading...<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>`</span>;
+  <span class="hljs-keyword">return</span> html`<span class="xml">
+    <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span></span><span class="hljs-subst">${owner}</span><span class="xml">/</span><span class="hljs-subst">${repo}</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Last commit message: </span><span class="hljs-subst">${commit.message}</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+  `</span>;
+}));
+</code></pre>
+<p><a href="https://adequatejs.org/repl.html?id=side-effects">Run example in REPL</a></p>
+<p>The hook <code>useEffect()</code> expects an effect function and a dependencies array as arguments. The effect function is called once initially and every time a dependency changes. An empty dependency array causes the function to be only executed once.</p>
+<p>This hook is almost identical to the implementation in React or Preact. Please refer to the <a href="https://reactjs.org/docs/hooks-reference.html#useeffect">React documentation</a> or the <a href="https://preactjs.com/guide/v10/hooks/#useeffect">Preact documentation</a> for a more detailed explanation. One difference is the missing support for an invocation without dependencies.</p>
+<h2 id="element-composition">Element composition</h2>
+<p>Elements can be composed and nested in any way:</p>
+<pre><code class="language-javascript">customElements.define(<span class="hljs-string">&#x27;x-settings&#x27;</span>, element(<span class="hljs-function">() =&gt;</span> {
+  <span class="hljs-keyword">return</span> html`<span class="xml">
+    <span class="hljs-tag">&lt;<span class="hljs-name">x-toggle</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;sound&quot;</span> <span class="hljs-attr">a</span>=<span class="hljs-string">&quot;on&quot;</span> <span class="hljs-attr">b</span>=<span class="hljs-string">&quot;off&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">x-toggle</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">x-toggle</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;Vibration&quot;</span> <span class="hljs-attr">a</span>=<span class="hljs-string">&quot;on&quot;</span> <span class="hljs-attr">b</span>=<span class="hljs-string">&quot;off&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">x-toggle</span>&gt;</span>
+  `</span>;
+}));
+
+customElements.define(<span class="hljs-string">&#x27;x-toggle&#x27;</span>, element(<span class="hljs-function">(<span class="hljs-params">{name, a, b}</span>) =&gt;</span> {
+  <span class="hljs-keyword">const</span> [activeValue, setActivePart] = useState(a);
+  <span class="hljs-keyword">return</span> html`<span class="xml">
+    </span><span class="hljs-subst">${name}</span><span class="xml">:
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span>
+      <span class="hljs-attr">readonly</span>
+      <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;cursor: pointer&quot;</span>
+      <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-subst">${name}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>
+      <span class="hljs-attr">onclick</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-subst">${() =&gt; setActivePart(activeValue == a ? b : a)}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>
+      <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-subst">${activeValue}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>
+    /&gt;</span>
+  `</span>;
+}));
+</code></pre>
+<p><a href="https://adequatejs.org/repl.html?id=element-composition">Run example in REPL</a></p>
+<p>When a parent element is rendered, child elements are only re-rendered if their attributes changed:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">let</span> childRenderCount = <span class="hljs-number">0</span>;
+customElements.define(<span class="hljs-string">&#x27;x-child&#x27;</span>, element(<span class="hljs-function">() =&gt;</span> {
+  <span class="hljs-keyword">return</span> html`<span class="xml">child render count: </span><span class="hljs-subst">${++childRenderCount}</span><span class="xml">`</span>;
+}));
+
+<span class="hljs-keyword">let</span> parentRenderCount = <span class="hljs-number">0</span>;
+customElements.define(<span class="hljs-string">&#x27;x-parent&#x27;</span>, element(<span class="hljs-function">() =&gt;</span> {
+  <span class="hljs-keyword">const</span> [counter, setCounter] = useState(<span class="hljs-number">0</span>);
+  <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> setCounter(counter + <span class="hljs-number">1</span>), <span class="hljs-number">1000</span>);
+  <span class="hljs-keyword">return</span> html`<span class="xml">
+    parent render count: </span><span class="hljs-subst">${++parentRenderCount}</span><span class="xml">
+    <span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">x-child</span> <span class="hljs-attr">counter</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-subst">${<span class="hljs-built_in">Math</span>.floor(counter <span class="hljs-regexp">/ 2)}&quot;&gt;&lt;/</span>x-child&gt;
+  <span class="hljs-string">`;
+}));</span></span>
+</code></pre>
+<p><a href="https://adequatejs.org/repl.html?id=child-rendering">Run example in REPL</a></p>
+<p>One notable exception is when an attribute is a function. In this case, the child element is always re-rendered.</p>
+<h2 id="function-attributes">Function attributes</h2>
+<p>Custom Elements can pass functions as attributes to other elements:</p>
+<pre><code class="language-javascript">customElements.define(<span class="hljs-string">&#x27;x-app&#x27;</span>, element(<span class="hljs-function">() =&gt;</span> {
+  <span class="hljs-keyword">return</span> html`<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">x-executor</span> <span class="hljs-attr">fn</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-subst">${() =&gt; alert(<span class="hljs-string">&#x27;was executed&#x27;</span>)}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">x-executor</span>&gt;</span>`</span>;
+}));
+
+customElements.define(<span class="hljs-string">&#x27;x-executor&#x27;</span>, element(<span class="hljs-function">(<span class="hljs-params">{ fn }</span>) =&gt;</span> {
+  fn();
+  <span class="hljs-keyword">return</span> html`<span class="xml">executing function: </span><span class="hljs-subst">${fn}</span><span class="xml">`</span>;
+}));
+</code></pre>
+<p><a href="https://adequatejs.org/repl.html?id=function-attributes">Run example in REPL</a></p>
+<p>This mechanism can be used for different patterns, which are explained in the following sections.</p>
+<h2 id="custom-callbacks">Custom callbacks</h2>
+<p>Function attributes can be used as custom callbacks:</p>
+<pre><code class="language-javascript">customElements.define(<span class="hljs-string">&#x27;x-game&#x27;</span>, element(<span class="hljs-function">() =&gt;</span> {
+  <span class="hljs-keyword">return</span> html`<span class="xml">
+    <span class="hljs-tag">&lt;<span class="hljs-name">x-question</span>
+      <span class="hljs-attr">text</span>=<span class="hljs-string">&quot;What is 3 + 4?&quot;</span>
+      <span class="hljs-attr">solution</span>=<span class="hljs-string">&quot;7&quot;</span>
+      <span class="hljs-attr">onsolve</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-subst">${() =&gt; alert(<span class="hljs-string">&#x27;solved!&#x27;</span>)}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>
+    &gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">x-question</span>&gt;</span>
+  `</span>;
+}));
+
+customElements.define(<span class="hljs-string">&#x27;x-question&#x27;</span>, element(<span class="hljs-function">(<span class="hljs-params">{ onSolve, solution, text }</span>) =&gt;</span> {
+  <span class="hljs-keyword">return</span> html`<span class="xml">
+    </span><span class="hljs-subst">${text}</span><span class="xml">
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span>
+      <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span>
+      <span class="hljs-attr">oninput</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-subst">${(event) =&gt; event.target.value == solution &amp;&amp; onSolve()}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>
+    /&gt;</span>
+  `</span>;
+}));
+</code></pre>
+<p><a href="https://adequatejs.org/repl.html?id=custom-callbacks">Run example in REPL</a></p>
+<p>Custom callbacks are different from DOM event handler functions. Native event attributes are mapped to event handlers. Custom callbacks are plain functions that are passed from one element to another.</p>
+<p><strong>Warning:</strong> Using a native event attribute as a custom callback results in an unexpected behavior:</p>
+<pre><code class="language-javascript">customElements.define(<span class="hljs-string">&#x27;x-app&#x27;</span>, element(<span class="hljs-function">() =&gt;</span> {
+  <span class="hljs-keyword">return</span> html`<span class="xml">
+    <span class="hljs-tag">&lt;<span class="hljs-name">x-button</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-subst">${() =&gt; alert(<span class="hljs-string">&#x27;was clicked&#x27;</span>)}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">x-button</span>&gt;</span>
+  `</span>;
+}));
+
+customElements.define(<span class="hljs-string">&#x27;x-button&#x27;</span>, element(<span class="hljs-function">(<span class="hljs-params">{ onclick }</span>) =&gt;</span> {
+  <span class="hljs-keyword">return</span> html`<span class="xml">
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-subst">${onclick}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span>Click me<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+  `</span>;
+}));
+</code></pre>
+<p>The above example executes <code>alert()</code> two times in case of a click event. The Custom Element <code>&lt;x-button&gt;</code> receives a function as &quot;onclick&quot; attribute, which causes to register a native event handler. The same function is also forwarded to the &quot;onclick&quot; attribute of the native button, which causes to create a second handler.</p>
+<p>In general, native event attributes should not be used inside the render function of an element.</p>
+<h2 id="render-props">Render Props</h2>
+<p>Function attributes can be used to forward dynamic DOM content to other Custom Elements:</p>
+<pre><code class="language-javascript">customElements.define(<span class="hljs-string">&#x27;x-app&#x27;</span>, element(<span class="hljs-function">() =&gt;</span> {
+  <span class="hljs-keyword">const</span> [counter, setCounter] = useState(<span class="hljs-number">0</span>);
+  <span class="hljs-keyword">return</span> html`<span class="xml">
+    <span class="hljs-tag">&lt;<span class="hljs-name">x-card</span>
+      <span class="hljs-attr">title</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-subst">${() =&gt; html`<span class="xml"><span class="hljs-tag"><span class="hljs-string">Current counter value: </span></span></span><span class="hljs-subst">${counter}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">`</span></span></span>}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>
+      <span class="hljs-attr">body</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-subst">${() =&gt; html`<span class="xml"><span class="hljs-tag"><span class="hljs-string">
+        &lt;button onclick=&quot;</span></span></span><span class="hljs-subst">${() =&gt; setCounter(counter + <span class="hljs-number">1</span>)}</span><span class="xml"><span class="hljs-tag">&quot;&gt;</span>
+          Increment
+        <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+      `</span>}</span><span class="xml">&quot;
+    &gt;<span class="hljs-tag">&lt;/<span class="hljs-name">x-card</span>&gt;</span>
+  `</span>;
+}));
+
+customElements.define(<span class="hljs-string">&#x27;x-card&#x27;</span>, element(<span class="hljs-function">(<span class="hljs-params">{ title, body }</span>) =&gt;</span> {
+  <span class="hljs-keyword">return</span> html`<span class="xml">
+    <span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;border: 1px solid black&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span></span><span class="hljs-subst">${title()}</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">hr</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><span class="hljs-subst">${body()}</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span>
+  `</span>;
+}));
+</code></pre>
+<p><a href="https://adequatejs.org/repl.html?id=render-props">Run example in REPL</a></p>
+<p>The card element only renders a frame, which is populated by the function attributes <code>title()</code> and <code>body()</code>. From the outside, any dynamic DOM content can be passed in. This technique is called Render Props. Please refer to the according <a href="https://reactjs.org/docs/render-props.html">React documentation</a> for a more detailed explanation.</p>
+<h2 id="large-datasets">Large datasets</h2>
+<p>Passing large datasets from one element to another via a function attribute avoids bloated markup:</p>
+<pre><code class="language-javascript">customElements.define(<span class="hljs-string">&#x27;x-app&#x27;</span>, element(<span class="hljs-function">() =&gt;</span> {
+  <span class="hljs-keyword">const</span> [input, setInput] = useState(<span class="hljs-string">&#x27;&#x27;</span>);
+  <span class="hljs-keyword">return</span> html`<span class="xml">
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span>
+      <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span>
+      <span class="hljs-attr">oninput</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-subst">${(event) =&gt; setInput(event.target.value)}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>
+      <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-subst">${input}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>
+    /&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">hr</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">x-character-count</span> <span class="hljs-attr">text</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-subst">${input}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">x-character-count</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">hr</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">x-character-count-fn</span> <span class="hljs-attr">text</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-subst">${() =&gt; input}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">x-character-count-fn</span>&gt;</span>
+  `</span>;
+}));
+
+customElements.define(<span class="hljs-string">&#x27;x-character-count&#x27;</span>, element(<span class="hljs-function">(<span class="hljs-params">{ text }</span>) =&gt;</span> {
+  <span class="hljs-keyword">return</span> html`<span class="xml">Characters: </span><span class="hljs-subst">${text.length}</span><span class="xml">`</span>;
+}));
+
+customElements.define(<span class="hljs-string">&#x27;x-character-count-fn&#x27;</span>, element(<span class="hljs-function">(<span class="hljs-params">{ text }</span>) =&gt;</span> {
+  <span class="hljs-keyword">return</span> html`<span class="xml">Characters: </span><span class="hljs-subst">${text().length}</span><span class="xml">`</span>;
+}));
+</code></pre>
+<p><a href="https://adequatejs.org/repl.html?id=large-datasets">Run example in REPL</a></p>
+<p>The Custom Element <code>&lt;x-character-count&gt;</code> receives the input text as plain attribute. Therefore, the attribute value in the DOM grows with every character. In contrast, the Custom Element <code>&lt;x-character-count-fn&gt;</code> expects the text to be given as function attribute. In this case, the DOM attribute only contains a function reference, which is constant in length.</p>
+<h2 id="keyed-elements">Keyed elements</h2>
+<p>Elements inside a collection can be equipped with a data-key attribute for identification:</p>
+<pre><code class="language-javascript">customElements.define(<span class="hljs-string">&#x27;x-list&#x27;</span>, element(<span class="hljs-function">() =&gt;</span> {
+  <span class="hljs-keyword">const</span> [list, setList] = useState([]);
+  <span class="hljs-keyword">const</span> [input, setInput] = useState(<span class="hljs-string">&#x27;&#x27;</span>);
+  <span class="hljs-keyword">return</span> html`<span class="xml">
+    <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+      </span><span class="hljs-subst">${list.map(item =&gt; html`<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">data-key</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-subst">${item}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span></span><span class="hljs-subst">${item}</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>`</span>)}</span><span class="xml">
+    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span>
+      <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-subst">${input}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>
+      <span class="hljs-attr">oninput</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-subst">${(event) =&gt; setInput(event.target.value)}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>
+    /&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span>
+      <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span>
+      <span class="hljs-attr">onclick</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-subst">${() =&gt; !list.includes(input) &amp;&amp; setList([input, ...list])}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>
+    &gt;</span>Add to top<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+  `</span>;
+}));
+</code></pre>
+<p><a href="https://adequatejs.org/repl.html?id=keyed-elements">Run example in REPL</a></p>
+<p>When adding a new item in the above example, the existing nodes remain unmodified. Without the data-key attributes, an addition would cause to modify every node.</p>
+<h2 id="accessing-the-dom">Accessing the DOM</h2>
+<p>The DOM node of a Custom Element instance can be accessed via <code>this</code> when using a regular function:</p>
+<pre><code class="language-javascript">customElements.define(<span class="hljs-string">&#x27;x-card&#x27;</span>, element(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">{ title, content }</span>) </span>{
+  useEffect(<span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-built_in">this</span>.style.display = <span class="hljs-string">&#x27;block&#x27;</span>;
+    <span class="hljs-built_in">this</span>.style.border = <span class="hljs-string">&#x27;1px solid black&#x27;</span>;
+  }, []);
+  <span class="hljs-keyword">return</span> html`<span class="xml">
+    <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span></span><span class="hljs-subst">${title}</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">hr</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">section</span>&gt;</span></span><span class="hljs-subst">${content}</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span>
+  `</span>;
+}));
+
+<span class="hljs-built_in">document</span>.body.innerHTML =
+  <span class="hljs-string">&#x27;&lt;x-card title=&quot;Test card&quot; content=&quot;Hello World!&quot;&gt;&lt;/x-card&gt;&#x27;</span>;
+</code></pre>
+<p><a href="https://adequatejs.org/repl.html?id=dom-access">Run example in REPL</a></p>
+<h2 id="custom-events">Custom Events</h2>
+<p>Custom Events can be dispatched and listened to by utilizing the native DOM API:</p>
+<pre><code class="language-javascript">customElements.define(<span class="hljs-string">&#x27;x-child&#x27;</span>, element(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-built_in">this</span>.dispatchEvent(<span class="hljs-keyword">new</span> CustomEvent(<span class="hljs-string">&#x27;child-message&#x27;</span>, {<span class="hljs-attr">bubbles</span>: <span class="hljs-literal">true</span>}));
+  }, <span class="hljs-number">1000</span>);
+  <span class="hljs-keyword">return</span> html`<span class="xml">sending a message in 1 second`</span>;
+}));
+
+customElements.define(<span class="hljs-string">&#x27;x-parent&#x27;</span>, element(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> [wasMessageReceived, setMessageReceived] = useState(<span class="hljs-literal">false</span>);
+  useEffect(<span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-built_in">this</span>.addEventListener(<span class="hljs-string">&#x27;child-message&#x27;</span>, <span class="hljs-function">() =&gt;</span> setMessageReceived(<span class="hljs-literal">true</span>));
+  }, []);
+  <span class="hljs-keyword">return</span> html`<span class="xml">
+      <span class="hljs-tag">&lt;<span class="hljs-name">x-child</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">x-child</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span>
+      message received: </span><span class="hljs-subst">${wasMessageReceived ? <span class="hljs-string">&#x27;yes&#x27;</span> : <span class="hljs-string">&#x27;no&#x27;</span>}</span><span class="xml">
+  `</span>;
+}));
+</code></pre>
+<p><a href="https://adequatejs.org/repl.html?id=custom-events">Run example in REPL</a></p>
+<h2 id="standalone-custom-elements">Standalone Custom Elements</h2>
+<p>adequate can also be used to create standalone Custom Elements:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> AdequateGreeter = element(
+  <span class="hljs-function">(<span class="hljs-params">{<span class="hljs-string">&#x27;first-name&#x27;</span>: firstName, <span class="hljs-string">&#x27;last-name&#x27;</span>: lastName}</span>) =&gt;</span> {
+    <span class="hljs-keyword">return</span> html`<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Hello, </span><span class="hljs-subst">${firstName}</span><span class="xml"> </span><span class="hljs-subst">${lastName}</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>`</span>;
+  },
+);
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Greeter</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AdequateGreeter</span> </span>{
+  <span class="hljs-keyword">static</span> <span class="hljs-keyword">get</span> <span class="hljs-title">observedAttributes</span>() {
+    <span class="hljs-keyword">return</span> [<span class="hljs-string">&#x27;first-name&#x27;</span>, <span class="hljs-string">&#x27;last-name&#x27;</span>];
+  }
+  <span class="hljs-function"><span class="hljs-title">attributeChangedCallback</span>(<span class="hljs-params"></span>)</span> {
+    <span class="hljs-built_in">this</span>.update();
+  }
+}
+
+customElements.define(<span class="hljs-string">&#x27;x-greeter&#x27;</span>, Greeter);
+<span class="hljs-built_in">document</span>.body.innerHTML =
+  <span class="hljs-string">&#x27;&lt;x-greeter first-name=&quot;Jim&quot; last-name=&quot;Doe&quot;&gt;&lt;/x-greeter&gt;&#x27;</span>;
+
+<span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;x-greeter&#x27;</span>).setAttribute(<span class="hljs-string">&#x27;first-name&#x27;</span>, <span class="hljs-string">&#x27;James&#x27;</span>);
+<span class="hljs-comment">// Try changing the attributes directly in the Browser Dev Tools</span>
+</code></pre>
+<p><a href="https://adequatejs.org/repl.html?id=standalone-custom-element">Run example in REPL</a></p>
+<p>The Custom Element <code>Greeter</code> reacts to attribute changes by calling the <code>update()</code> function of the element created with adequate.</p>
+<h2 id="typescript-usage">Typescript usage</h2>
+<p>The usage with TypeScript only requires type annotations when working with function attributes:</p>
+<pre><code class="language-typescript">customElements.define(<span class="hljs-string">&#x27;x-app&#x27;</span>, element(<span class="hljs-function">() =&gt;</span> {
+  <span class="hljs-keyword">const</span> [input, setInput] = useState(<span class="hljs-string">&#x27;&#x27;</span>);
+  <span class="hljs-keyword">return</span> html`<span class="xml">
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span>
+      <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span>
+      <span class="hljs-attr">oninput</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-subst">${(event) =&gt; setInput(event.target.value)}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>
+      <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-subst">${input}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>
+    /&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">hr</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">x-character-count</span> <span class="hljs-attr">text</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-subst">${input}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">x-character-count</span>&gt;</span>
+  `</span>;
+}));
+
+<span class="hljs-comment">// with typed argument</span>
+customElements.define(
+  <span class="hljs-string">&#x27;x-character-count&#x27;</span>,
+  element(<span class="hljs-function">(<span class="hljs-params">{ text }: { text: () =&gt; <span class="hljs-built_in">string</span> }</span>) =&gt;</span> {
+    <span class="hljs-keyword">return</span> html`<span class="xml">Characters: </span><span class="hljs-subst">${text().length}</span><span class="xml">`</span>;
+  }),
+);
+
+<span class="hljs-comment">// with type parameter</span>
+customElements.define(
+  <span class="hljs-string">&#x27;x-character-count&#x27;</span>,
+  element&lt;{ <span class="hljs-attr">text</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">string</span> }&gt;(<span class="hljs-function">(<span class="hljs-params">{ text }</span>) =&gt;</span> {
+    <span class="hljs-keyword">return</span> html`<span class="xml">Characters: </span><span class="hljs-subst">${text().length}</span><span class="xml">`</span>;
+  }),
+);
+</code></pre>
 
     <script type="text/javascript" src="./index.js"></script>
   </body>

@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto|Source+Code+Pro" rel="stylesheet" />
     <link href="./index.css" rel="stylesheet" />
   </head>
-  <body class="home"'>
+  <body class="home">
     <nav>
       <a href="./index.html" class="active">adequate</a>
       <a href="./api.html">API</a>
@@ -33,88 +33,81 @@
 </a>
 </div>
 
-<pre><code class="language-javascript">customElements.define(<span class="hljs-string">'x-counter'</span>, element(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+<pre><code class="language-javascript">customElements.define(<span class="hljs-string">&#x27;x-counter&#x27;</span>, element(<span class="hljs-function">() =&gt;</span> {
   <span class="hljs-keyword">const</span> [value, setValue] = useState(<span class="hljs-number">0</span>);
 
   <span class="hljs-keyword">return</span> html`<span class="xml">
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Counter: </span><span class="hljs-subst">${value}</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">"</span></span></span><span class="hljs-subst">${() =&gt; setValue(value + <span class="hljs-number">1</span>)}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">"</span>&gt;</span>Increment<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">"</span></span></span><span class="hljs-subst">${() =&gt; setValue(value - <span class="hljs-number">1</span>)}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">"</span>&gt;</span>Decrement<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-subst">${() =&gt; setValue(value + <span class="hljs-number">1</span>)}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span>Increment<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-subst">${() =&gt; setValue(value - <span class="hljs-number">1</span>)}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span>Decrement<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
   `</span>;
 }));
-<span class="hljs-built_in">document</span>.body.innerHTML = <span class="hljs-string">'&lt;x-counter&gt;&lt;/x-counter&gt;'</span>;</code></pre>
+<span class="hljs-built_in">document</span>.body.innerHTML = <span class="hljs-string">&#x27;&lt;x-counter&gt;&lt;/x-counter&gt;&#x27;</span>;
+</code></pre>
 <p>Head to the <a href="https://adequatejs.org/repl.html">REPL</a> for interactive examples</p>
 <h2 id="features">Features</h2>
 <ul>
-<li><strong>Instant loading</strong> adequate has a minzipped size of <strong>1.1kb</strong> (standalone). This is 37 times smaller than React (16.12.0) and 4 times smaller than Preact (10.2.1).</li>
+<li><strong>Instant loading</strong> adequate has a size of <strong>0.99kb</strong> (minzipped). This is 43 times smaller than React (17.0.1) and 5 times smaller than Preact (10.5.12).</li>
 <li><strong>Declarative views</strong> HTML Template Literals are rendered as Template Elements and only the changed DOM parts are updated.</li>
 <li><strong>Custom Elements</strong> Custom Elements are used as component model and enable to control state boundaries and render performance.</li>
-<li><strong>State management</strong> Stateful elements can be implemented with a minimal React-like Hooks API.</li>
-<li><strong>Event handling</strong> Function expressions are translated into HTML event attributes for handling built-in and custom DOM events.</li>
-<li><strong>Zero tooling</strong> The library requires no compilation or tooling. HTML syntax highlighting in Template Literals can be enabled via a <a href="https://marketplace.visualstudio.com/items?itemName=bierner.lit-html">plugin</a>.</li>
+<li><strong>Hooks API</strong> Elements can make use of a React-like Hooks API for state management and side effects.</li>
+<li><strong>Event handling</strong> Inline functions can be used as native DOM event handlers and as custom callbacks.</li>
+<li><strong>Zero tooling</strong> The library requires no compilation or tooling. HTML syntax highlighting can be enabled via a <a href="https://marketplace.visualstudio.com/items?itemName=bierner.lit-html">plugin</a>.</li>
 </ul>
 <h2 id="non-goals">Non-goals</h2>
 <ul>
-<li><strong>Maximum Performance</strong> The library is not heavily optimized for render performance or memory usage.</li>
-<li><strong>Semantic markup</strong> Some used HTML attributes may deteriorate semantic markup quality.</li>
-<li><strong>Full Hooks API</strong> While the State Hook is React-compatible, there is no support for a full Hook API.</li>
+<li><strong>Maximum Performance</strong> The library is not optimized for render performance or memory usage.</li>
+<li><strong>Semantic markup</strong> HTML attributes are used in a way that may deteriorate semantic markup quality.</li>
+<li><strong>Complete Hooks API</strong> The offered Hooks API is only a subset of what React/Preact offers.</li>
 <li><strong>Shadow DOM</strong> The library does not support Shadow DOM for individual elements.</li>
 </ul>
 <h2 id="size-comparison">Size comparison</h2>
-<p>adequate is a perfect fit when size is important, such as when dealing with limited bandwidth or storage capacity restrictions. The following compares the sizes of adequate, React and Preact on their own and together with a todo list. Overall, the resulting numbers demonstrate the key advantage of adequate. Even when bundled with a basic todo list, the size is still multiple times smaller than the Preact library itself. </p>
+<p>adequate is a perfect fit when size is important, such as when dealing with limited bandwidth or storage capacity restrictions. The following compares the sizes of adequate, React and Preact on their own and together with a simplified todo list. This comparison is exclusively concerned with size, not with functionalities or render performance. The numbers demonstrate the key advantage of adequate. Even when bundled with a basic todo list, the size is still multiple times smaller than Preact itself. </p>
 <div class="size-comparison">
   <div class="chart">
     <div class="library">
-      <div class="library-size" style="background-color: #61dafb; height: 83.16%;">
-        <div class="size-label">41.58kb</div>
+      <div class="library-size" style="background-color: #61dafb; height: 85.04%;">
+        <div class="size-label">42.52kb</div>
       </div>
-      <div class="bundle-size" style="background-color: #61dafb88; height: 83.76%;">
-        <div class="size-label">41.88kb</div>
-      </div>
-    </div>
-    <div class="library">
-      <div class="library-size" style="background-color: #673ab8; height: 8.96%;">
-        <div class="size-label">4.48kb</div>
-      </div>
-      <div class="bundle-size" style="background-color: #673ab888; height: 9.58%;">
-        <div class="size-label">4.79kb</div>
+      <div class="bundle-size" style="background-color: #61dafb88; height: 85.68%;">
+        <div class="size-label">42.84kb</div>
       </div>
     </div>
     <div class="library">
-      <div class="library-size" style="background-color: #39ffaa; height: 2.24%;">
-        <div class="size-label">1.12kb</div>
+      <div class="library-size" style="background-color: #673ab8; height: 9.74%;">
+        <div class="size-label">4.87kb</div>
       </div>
-      <div class="bundle-size" style="background-color: #39ffaa88; height: 3.00%;">
-        <div class="size-label">1.50kb</div>
+      <div class="bundle-size" style="background-color: #673ab888; height: 10.38%;">
+        <div class="size-label">5.19kb</div>
+      </div>
+    </div>
+    <div class="library">
+      <div class="library-size" style="background-color: #39ffaa; height: 1.98%;">
+        <div class="size-label">0.99kb</div>
+      </div>
+      <div class="bundle-size" style="background-color: #39ffaa88; height: 2.74%;">
+        <div class="size-label">1.37kb</div>
       </div>
     </div>
     <div class="legend">
-      <span class="box" style="background-color: #61dafb"></span> React + ReactDOM @ 16.12.0
+      <span class="box" style="background-color: #61dafb"></span> React + ReactDOM @ 17.0.1
       <br />
-      <span class="box" style="background-color: #673ab8"></span> Preact + Hooks @ 10.2.1
+      <span class="box" style="background-color: #673ab8"></span> Preact + Hooks @ 10.5.12
       <br />
       <span class="box" style="background-color: #39ffaa"></span> adequate @ latest
     </div>
   </div>
 </div>
 
-
-<!--
-## Performance test
-
-tbd
-
--->
-
 <h2 id="browser-support">Browser support</h2>
-<p>adequate works in most of the latest major browsers, both on desktop and mobile. However, Microsoft Edge requires a <a href="https://github.com/jonathantneal/element-qsa-scope">polyfill</a> for the <code>:scope</code> pseudo query selector.</p>
+<p>adequate works in most of the latest major browsers, both on desktop and mobile. For browsers without support for the <code>:scope</code> pseudo query selector, a <a href="https://github.com/jonathantneal/element-qsa-scope">polyfill</a> can be used.</p>
 <h2 id="resources">Resources</h2>
 <p>The following list is a collection of concepts and technologies that are related to adequate.
 Some of them served as inspiration for the library, others merely share similar ideas.</p>
 <ul>
 <li><a href="https://github.com/caub/dom-tagged-template">dom-tagged-template</a></li>
 <li><a href="https://github.com/developit/htm">htm</a></li>
-<li><a href="https://viperhtml.js.org/">hyperHTML</a></li>
+<li><a href="https://github.com/WebReflection/hyperHTML">hyperHTML</a></li>
 <li><a href="https://github.com/WebReflection/lighterhtml">lighterhtml</a></li>
 <li><a href="https://lit-html.polymer-project.org/">lit-html</a></li>
 <li><a href="https://lit-element.polymer-project.org/">LitElement</a></li>
@@ -128,10 +121,9 @@ Some of them served as inspiration for the library, others merely share similar 
 </ul>
 </li>
 </ul>
-<h2 id="contact--collaboration">Contact &amp; collaboration</h2>
-<p class="centered">
-For contact & collaboration check the <a href="https://github.com/alexlawrence/adequate">Github Repository</a>.
-</p>
+<h2 id="showcases">Showcases</h2>
+<p>As the library is relatively new, there are currently no known showcase projects. If you use adequate in one of your projects, please <a href="https://www.alex-lawrence.com/contact/">let me know</a> and I&#39;ll add it to this page.</p>
+
     <script type="text/javascript" src="./index.js"></script>
   </body>
 </html>
