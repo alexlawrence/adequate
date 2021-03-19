@@ -617,7 +617,7 @@ option {
 @media (max-width: 480px) {
   h1 {
     font-size: 50px;
-    height: 55px;
+    height: 60px;
   }
 
   .subtitle {
@@ -632,7 +632,7 @@ option {
   nav a::after {
     color: #fff;
     content: '';
-    margin: 0 7.5px;
+    margin: 0 5px;
   }
 
   nav a:not(:last-child)::after {
@@ -642,7 +642,7 @@ option {
   .guide-dropdown-container {
     margin: 0;
     position: absolute;
-    left: 7.5px;
+    left: 5px;
   }
   
   .guide-dropdown {
@@ -650,7 +650,7 @@ option {
     border: 1px solid #FFF;
     color: #FFF;
     padding: 2px;
-    width: 60px;
+    width: 50px;
   }
 
   pre code {
