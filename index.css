@@ -560,11 +560,11 @@ strong {
 
 .repl-main textarea,
 .CodeMirror {
-  width: 50%;
+  width: 60%;
 }
 
 .repl-main iframe {
-  width: 50%;
+  width: 40%;
 }
 
 .CodeMirror {
