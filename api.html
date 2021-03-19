@@ -17,6 +17,8 @@
       <a href="https://github.com/alexlawrence/adequate">Github</a>
     </nav>
     <h1 id="api">API</h1>
+<p class="subtitle">Basic API description</p>
+
 <h3 id="elementrender"><code>element(render)</code></h3>
 <p>The function <code>element()</code> creates a Custom Element class. As only argument, it expects a render operation. The return value is a constructor that can be passed to <code>customElements.define()</code>. Note that the Custom Element classes returned from this function may not work as expected outside of adequate. Check the <a href="https://adequatejs.org/guide.html">Guide</a> for an explanation on how to build a general-purpose Custom Element.</p>
 <p>The provided render operation is called every time an element instance needs to update. As argument, it receives an object that contains all HTML attributes of the associated DOM element. Also, for regular functions, <code>this</code> is bound to the DOM element. The render operation must yield a list of tokens created via <code>html()</code>. Functions that are used as HTML attribute are extracted and replaced with a reference. If an element receives a function from a parent, it is correctly serialized and de-serialized.</p>
