@@ -8,7 +8,7 @@ adequate is available as an ES Module (`adequate.module.js`) and as a standalone
 
 ### npm
 
-The best approach is to install the library via `npm` (or `yarn`) as a local project dependency:
+Install adequate via `npm` (or `yarn`) as a local project dependency:
 
 ```text
 npm i --save --save-exact adequate
@@ -16,13 +16,9 @@ npm i --save --save-exact adequate
 
 The npm package also includes TypeScript definitions.
 
-### Github Releases
-
-Another installation possibility is to download adequate from the [Github Repository Releases page](https://github.com/alexlawrence/adequate/releases). Note that the release assets only contain the ES Module and the standalone files, without any TypeScript definitions.
-
 ### CDNs
 
-Furthermore, the library can also be loaded directly into the browser via a CDN, such as [unpkg](https://unpkg.com/adequate/dist/adequate.min.js). Similar to the Github Releases, this approach lacks TypeScript support.
+Another option is to load the library directly into the browser via a CDN, such as [unpkg](https://unpkg.com/adequate/dist/adequate.min.js).
 
 ## IDE configuration
 
