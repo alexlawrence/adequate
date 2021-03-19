@@ -3,10 +3,6 @@
 <p class="subtitle">An adequate UI library with minimal size</p>
 
 <div class="badges">
-<a href="https://travis-ci.org/alexlawrence/adequate">
-  <img alt="Build Status" src="https://travis-ci.org/alexlawrence/adequate.svg?branch=master">
-</a>
-&nbsp;
 <a href="https://npmjs.com/package/adequate">
   <img alt="Package Size" src="https://badgen.net/npm/v/adequate">
 </a>
