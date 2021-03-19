@@ -7,9 +7,10 @@ customElements.define(
     });
     const onSubmit = (event) => {
       event.preventDefault();
+      const newTodo = { label: state.newTodoText, completed: false };
       setState({
         newTodoText: '',
-        todos: [...state.todos, { label: state.newTodoText, completed: false }],
+        todos: [...state.todos, newTodo],
       });
     };
     const toggleTodo = (todo) => {

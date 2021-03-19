@@ -17,5 +17,4 @@ customElements.define(
   }),
 );
 
-document.body.innerHTML =
-  '<x-last-commit owner="alexlawrence" repo="www.alex-lawrence.com"></x-last-commit>';
+document.body.innerHTML = '<x-last-commit owner="alexlawrence" repo="adequate"></x-last-commit>';
