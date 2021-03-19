@@ -625,18 +625,32 @@ option {
     height: 30px;
   }
 
-  nav {
-    justify-content: center;
-  }
-
   nav a {
     margin-right: 0;
   }
 
-  nav a:not(:last-child)::after {
+  nav a::after {
     color: #fff;
-    content: '|';
+    content: '';
     margin: 0 7.5px;
+  }
+
+  nav a:not(:last-child)::after {
+    content: '|';
+  }
+
+  .guide-dropdown-container {
+    margin: 0;
+    position: absolute;
+    left: 7.5px;
+  }
+  
+  .guide-dropdown {
+    background-color: transparent;
+    border: 1px solid #FFF;
+    color: #FFF;
+    padding: 2px;
+    width: 60px;
   }
 
   pre code {
