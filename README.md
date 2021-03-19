@@ -8,7 +8,7 @@
 </a>
 &nbsp;
 <a href="https://bundlephobia.com/result?p=adequate@latest">
-  <img alt="Package Size" src="https://badgen.net/bundlephobia/minzip/adequate">
+  <img alt="Package Size" src="https://badgen.net/bundlephobia/minzip/adequate@latest">
 </a>
 </div>
 
@@ -29,7 +29,7 @@ Head to the [REPL](https://adequatejs.org/repl.html) for interactive examples
 
 ## Features
 
-- **Instant loading:** adequate has a size of **0.99kb** (minzipped). This is 43 times smaller than React (17.0.1) and 5 times smaller than Preact (10.5.12).
+- **Instant loading:** adequate has a standalone size of **0.99kb** (minzipped). This is 43x smaller than React (17.0) and 5x smaller than Preact (10.5).
 - **Declarative views:** HTML Template Literals are rendered as Template Elements and only the changed DOM parts are updated.
 - **Custom Elements:** Custom Elements are used as component model and enable to control state boundaries and render performance.
 - **Hooks API:** Elements can make use of a React-like Hooks API for state management and side effects.
