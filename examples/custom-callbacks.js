@@ -6,7 +6,7 @@ customElements.define(
       text="What is 3 + 4?"
       solution="7"
       onsolve="${() => alert('solved!')}"
-    ></x-riddle>
+    ></x-question>
   `;
   }),
 );
