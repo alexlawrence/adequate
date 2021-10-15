@@ -3,7 +3,7 @@ import fs from 'fs';
 
 const exec = (command) => childProcess.execSync(command, { stdio: 'inherit' });
 
-fs.rmdirSync('./dist', { recursive: true, force: true });
+fs.rmSync('./dist', { recursive: true, force: true });
 exec('npx tsc --declaration --declarationDir dist/types');
 exec('npx rollup --no-strict -f iife -i ./dist/src/index.js -o ./dist/adequate.js');
 exec('npx rollup --no-strict -f esm -i dist/src/index.module.js -o ./dist/adequate.module.js');
