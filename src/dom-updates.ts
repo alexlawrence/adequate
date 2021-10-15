@@ -16,6 +16,7 @@ const updateChildNodes = (
     }
     const newChildKey = getElementKey(newChildNode);
     const currentChildKey = getElementKey(currentChildNode);
+    // NOTE: This also evaluates to true if both elements do not have keys
     if (currentChildKey == newChildKey) updateNode(currentChildNode, newChildNode);
     else {
       const otherCurrentChildNodeWithNewKey =
@@ -32,7 +33,7 @@ const updateChildNodes = (
         );
     }
   });
-  removeExtraneousChildren(currentElement.childNodes, newChildNodes.length);
+  removeExtraneousChildren(currentElement, newChildNodes.length);
 };
 
 const updateNode = (currentNode: Node, newNode: Node) => {
@@ -82,10 +83,11 @@ const getElementKey = (node: Node) =>
 const getElementByKey = (parentElement: HTMLElement | DocumentFragment, key: string) =>
   parentElement.querySelector(`:scope [data-key="${key}"]`);
 
-const removeExtraneousChildren = (childNodes: NodeListOf<ChildNode>, startIndex: number) => {
-  Array.from(childNodes)
-    .slice(startIndex)
-    .forEach((node) => node.remove());
+const removeExtraneousChildren = (node: HTMLElement, startIndex: number) => {
+  const range = document.createRange();
+  range.selectNodeContents(node);
+  range.setStart(node, startIndex);
+  range.deleteContents();
 };
 
 export { updateChildNodes };
