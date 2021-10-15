@@ -16,6 +16,7 @@
   "author": "Alex Lawrence <mail@alex-lawrence.com> (https://www.alex-lawrence.com/)",
   "license": "MIT",
   "devDependencies": {
+    "@types/node": "16.11.0",
     "chrome-remote-interface": "0.29.0",
     "gh-pages": "3.1.0",
     "highlight.js": "10.6.0",
