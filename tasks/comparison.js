@@ -21,7 +21,7 @@ const gzip = (absoluteFilename) =>
 const calculateFileSize = (absoluteFilename) =>
   (fs.statSync(absoluteFilename).size / 1024).toFixed(3);
 
-fs.rmdirSync('./dist/comparison', { recursive: true });
+fs.rmSync('./dist/comparison', { recursive: true, force: true });
 
 const exampleAppsToBuild = ['todo-list'];
 
