@@ -16,8 +16,7 @@ const updateChildNodes = (
     }
     const newChildKey = getElementKey(newChildNode);
     const currentChildKey = getElementKey(currentChildNode);
-    if ((!currentChildKey && !newChildKey) || currentChildKey == newChildKey)
-      updateNode(currentChildNode, newChildNode);
+    if (currentChildKey == newChildKey) updateNode(currentChildNode, newChildNode);
     else {
       const otherCurrentChildNodeWithNewKey =
         newChildKey && getElementByKey(currentElement, newChildKey);
