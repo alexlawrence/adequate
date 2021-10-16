@@ -7,7 +7,7 @@ type ExtractedFunctionExpressions = Function[];
 
 type AdequateElement = HTMLElement & { update: () => void };
 
-const functionAttributeStart = `/*adequate*/return this.parentNode.closest`;
+const functionAttributeStart = `/*fn*/return this.parentNode.closest`;
 
 const element = <T extends AttributeProxy>(
   render: (this: AdequateElement, attributeProxy: T) => unknown[],
@@ -28,7 +28,7 @@ const element = <T extends AttributeProxy>(
       const extractedFunctionExpressions: Function[] = [];
       const templateLiteralTokens = self.render_.call(self, this.attributeProxy_);
       const processedTokens = templateLiteralTokens.map((token: unknown) =>
-        token && typeof token == 'function'
+        typeof token == 'function'
           ? `${functionAttributeStart}('${this.nodeName}').f[${
               extractedFunctionExpressions.push(token as Function) - 1
             }](...arguments)`

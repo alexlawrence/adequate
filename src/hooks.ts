@@ -1,8 +1,8 @@
 let currentHookStack: any[];
 let currentIndex: number;
-let currentSideEffect: () => void;
+let currentSideEffect: Function;
 
-const withHooks = <T extends (...args: any[]) => any>(original: T, sideEffect: () => void) => {
+const withHooks = <T extends (...args: any[]) => any>(original: T, sideEffect: Function) => {
   const stateList: any[] = [];
   return function (this: ThisParameterType<T>, ...args: Parameters<T>) {
     currentHookStack = stateList;
@@ -17,10 +17,7 @@ const useState = <T>(initialState: T): [T, (state: T) => void] => {
   const index = currentIndex++;
   const sideEffect = currentSideEffect;
   if (hookStack.length <= index) hookStack[index] = initialState;
-  const setState = (state: T) => {
-    hookStack[index] = state;
-    sideEffect();
-  };
+  const setState = (state: T) => sideEffect(hookStack[index] = state);
   return [hookStack[index], setState];
 };
 
@@ -32,7 +29,7 @@ const useEffect = (effectFn: Function, dependencies: unknown[]) => {
     !oldDependencies ||
     dependencies.some((dependency, index) => dependency != oldDependencies[index])
   )
-    queueMicrotask(() => effectFn());
+    queueMicrotask(effectFn as () => void);
   hookStack[index] = dependencies;
 };
 
