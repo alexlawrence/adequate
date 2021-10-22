@@ -19,7 +19,7 @@ marked.setOptions({
   headerIds: true,
 });
 
-fs.rmdirSync(distDirectory, { recursive: true, force: true });
+fs.rmSync(distDirectory, { recursive: true, force: true });
 fs.mkdirSync(distDirectory, { recursive: true, force: true });
 
 const template = fs.readFileSync(`${srcDirectory}/template.html`, 'utf-8');
