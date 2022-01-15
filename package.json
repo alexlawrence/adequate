@@ -20,7 +20,7 @@
     "chrome-remote-interface": "0.29.0",
     "gh-pages": "3.1.0",
     "highlight.js": "10.6.0",
-    "marked": "2.0.1",
+    "marked": "4.0.10",
     "mini.css": "3.0.1",
     "prettier": "2.2.1",
     "reset-css": "5.0.1",
