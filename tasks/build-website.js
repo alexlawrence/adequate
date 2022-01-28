@@ -1,7 +1,7 @@
 import fs from 'fs';
 import childProcess from 'child_process';
 
-import marked from 'marked';
+import { marked } from 'marked';
 import hljs from 'highlight.js';
 
 const srcDirectory = `website`;
